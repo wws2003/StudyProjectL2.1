@@ -1,0 +1,358 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		400A105D1CAA9C58001DBC3D /* matrix_multiple.cl in Sources */ = {isa = PBXBuildFile; fileRef = 400A105C1CAA9C58001DBC3D /* matrix_multiple.cl */; };
+		4027000B1C4361F70061BCC9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4027000A1C4361F70061BCC9 /* main.cpp */; };
+		402700161C4363DA0061BCC9 /* HelloWorld.cl in Sources */ = {isa = PBXBuildFile; fileRef = 402700151C4363DA0061BCC9 /* HelloWorld.cl */; };
+		40589274203AB5410016CB28 /* libSimpleOpenCLLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 40589273203AB5410016CB28 /* libSimpleOpenCLLib.a */; };
+		4068621B1CB3DECD00211E4E /* SequentialVectorAdder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 406862191CB3DECD00211E4E /* SequentialVectorAdder.cpp */; };
+		406862271CB50D3000211E4E /* CLVectorAdder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 406862251CB50D3000211E4E /* CLVectorAdder.cpp */; };
+		406862421CB641A500211E4E /* vector_inner_product.cl in Sources */ = {isa = PBXBuildFile; fileRef = 406862411CB641A500211E4E /* vector_inner_product.cl */; };
+		406862481CB646CE00211E4E /* CLVectorInnerMultiplierImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 406862471CB646CE00211E4E /* CLVectorInnerMultiplierImpl.cpp */; };
+		4068624B1CB64E0400211E4E /* CLLocalizedVectorInnerMultiplierImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 406862491CB64E0400211E4E /* CLLocalizedVectorInnerMultiplierImpl.cpp */; };
+		4068624E1CB653DC00211E4E /* SequentialVectorInnerMultiplierImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4068624C1CB653DC00211E4E /* SequentialVectorInnerMultiplierImpl.cpp */; };
+		406862521CB6758900211E4E /* SequentialMatrixMultiplierImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 406862501CB6758900211E4E /* SequentialMatrixMultiplierImpl.cpp */; };
+		406862551CB67B7500211E4E /* CLMatrixMultiplierImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 406862531CB67B7500211E4E /* CLMatrixMultiplierImpl.cpp */; };
+		406862581CB687A600211E4E /* CLLocalizedMatrixMultiplierImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 406862561CB687A600211E4E /* CLLocalizedMatrixMultiplierImpl.cpp */; };
+		4068625D1CB7740800211E4E /* matrix_multiply_2d.cl in Sources */ = {isa = PBXBuildFile; fileRef = 4068625C1CB7740800211E4E /* matrix_multiply_2d.cl */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		402700051C4361F70061BCC9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		400A105C1CAA9C58001DBC3D /* matrix_multiple.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = matrix_multiple.cl; sourceTree = "<group>"; };
+		402700071C4361F70061BCC9 /* MatrixVectorOpenCL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MatrixVectorOpenCL; sourceTree = BUILT_PRODUCTS_DIR; };
+		4027000A1C4361F70061BCC9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		402700121C4362270061BCC9 /* OpenCL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCL.framework; path = System/Library/Frameworks/OpenCL.framework; sourceTree = SDKROOT; };
+		402700151C4363DA0061BCC9 /* HelloWorld.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = HelloWorld.cl; sourceTree = "<group>"; };
+		40589273203AB5410016CB28 /* libSimpleOpenCLLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSimpleOpenCLLib.a; path = ../../SimpleOpenCLLib/output/Build/Products/Debug/libSimpleOpenCLLib.a; sourceTree = "<group>"; };
+		406862181CB3DDB400211E4E /* IVectorAdder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IVectorAdder.h; sourceTree = "<group>"; };
+		406862191CB3DECD00211E4E /* SequentialVectorAdder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SequentialVectorAdder.cpp; sourceTree = "<group>"; };
+		4068621A1CB3DECD00211E4E /* SequentialVectorAdder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequentialVectorAdder.h; sourceTree = "<group>"; };
+		406862251CB50D3000211E4E /* CLVectorAdder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLVectorAdder.cpp; sourceTree = "<group>"; };
+		406862261CB50D3000211E4E /* CLVectorAdder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVectorAdder.h; sourceTree = "<group>"; };
+		406862401CB6400000211E4E /* IVectorInnerMultiplier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IVectorInnerMultiplier.h; sourceTree = "<group>"; };
+		406862411CB641A500211E4E /* vector_inner_product.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = vector_inner_product.cl; sourceTree = "<group>"; };
+		406862461CB646CE00211E4E /* CLVectorInnerMultiplierImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLVectorInnerMultiplierImpl.h; sourceTree = "<group>"; };
+		406862471CB646CE00211E4E /* CLVectorInnerMultiplierImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLVectorInnerMultiplierImpl.cpp; sourceTree = "<group>"; };
+		406862491CB64E0400211E4E /* CLLocalizedVectorInnerMultiplierImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLLocalizedVectorInnerMultiplierImpl.cpp; sourceTree = "<group>"; };
+		4068624A1CB64E0400211E4E /* CLLocalizedVectorInnerMultiplierImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocalizedVectorInnerMultiplierImpl.h; sourceTree = "<group>"; };
+		4068624C1CB653DC00211E4E /* SequentialVectorInnerMultiplierImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SequentialVectorInnerMultiplierImpl.cpp; sourceTree = "<group>"; };
+		4068624D1CB653DC00211E4E /* SequentialVectorInnerMultiplierImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequentialVectorInnerMultiplierImpl.h; sourceTree = "<group>"; };
+		4068624F1CB6707100211E4E /* IMatrixMultiplier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMatrixMultiplier.h; sourceTree = "<group>"; };
+		406862501CB6758900211E4E /* SequentialMatrixMultiplierImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SequentialMatrixMultiplierImpl.cpp; sourceTree = "<group>"; };
+		406862511CB6758900211E4E /* SequentialMatrixMultiplierImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequentialMatrixMultiplierImpl.h; sourceTree = "<group>"; };
+		406862531CB67B7500211E4E /* CLMatrixMultiplierImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLMatrixMultiplierImpl.cpp; sourceTree = "<group>"; };
+		406862541CB67B7500211E4E /* CLMatrixMultiplierImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLMatrixMultiplierImpl.h; sourceTree = "<group>"; };
+		406862561CB687A600211E4E /* CLLocalizedMatrixMultiplierImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLLocalizedMatrixMultiplierImpl.cpp; sourceTree = "<group>"; };
+		406862571CB687A600211E4E /* CLLocalizedMatrixMultiplierImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocalizedMatrixMultiplierImpl.h; sourceTree = "<group>"; };
+		4068625C1CB7740800211E4E /* matrix_multiply_2d.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = matrix_multiply_2d.cl; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		402700041C4361F70061BCC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40589274203AB5410016CB28 /* libSimpleOpenCLLib.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		400A105E1CAAA142001DBC3D /* classes */ = {
+			isa = PBXGroup;
+			children = (
+				40297CC91CB12DCD0009F5C4 /* consumer */,
+			);
+			path = classes;
+			sourceTree = "<group>";
+		};
+		402700081C4361F70061BCC9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				402700071C4361F70061BCC9 /* MatrixVectorOpenCL */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		402700091C4361F70061BCC9 /* MatrixVectorOpenCL */ = {
+			isa = PBXGroup;
+			children = (
+				400A105E1CAAA142001DBC3D /* classes */,
+				402700141C4363A80061BCC9 /* kernel */,
+				4027000A1C4361F70061BCC9 /* main.cpp */,
+			);
+			name = MatrixVectorOpenCL;
+			path = OpenCLHelloWorld;
+			sourceTree = "<group>";
+		};
+		402700111C4362170061BCC9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				40589273203AB5410016CB28 /* libSimpleOpenCLLib.a */,
+				402700121C4362270061BCC9 /* OpenCL.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		402700141C4363A80061BCC9 /* kernel */ = {
+			isa = PBXGroup;
+			children = (
+				402700151C4363DA0061BCC9 /* HelloWorld.cl */,
+				400A105C1CAA9C58001DBC3D /* matrix_multiple.cl */,
+				406862411CB641A500211E4E /* vector_inner_product.cl */,
+				4068625C1CB7740800211E4E /* matrix_multiply_2d.cl */,
+			);
+			path = kernel;
+			sourceTree = "<group>";
+		};
+		4027FFFE1C4361F70061BCC9 = {
+			isa = PBXGroup;
+			children = (
+				402700111C4362170061BCC9 /* Frameworks */,
+				402700091C4361F70061BCC9 /* MatrixVectorOpenCL */,
+				402700081C4361F70061BCC9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		40297CC91CB12DCD0009F5C4 /* consumer */ = {
+			isa = PBXGroup;
+			children = (
+				406862181CB3DDB400211E4E /* IVectorAdder.h */,
+				4068621A1CB3DECD00211E4E /* SequentialVectorAdder.h */,
+				406862191CB3DECD00211E4E /* SequentialVectorAdder.cpp */,
+				406862261CB50D3000211E4E /* CLVectorAdder.h */,
+				406862251CB50D3000211E4E /* CLVectorAdder.cpp */,
+				406862401CB6400000211E4E /* IVectorInnerMultiplier.h */,
+				406862461CB646CE00211E4E /* CLVectorInnerMultiplierImpl.h */,
+				406862471CB646CE00211E4E /* CLVectorInnerMultiplierImpl.cpp */,
+				4068624A1CB64E0400211E4E /* CLLocalizedVectorInnerMultiplierImpl.h */,
+				406862491CB64E0400211E4E /* CLLocalizedVectorInnerMultiplierImpl.cpp */,
+				4068624D1CB653DC00211E4E /* SequentialVectorInnerMultiplierImpl.h */,
+				4068624C1CB653DC00211E4E /* SequentialVectorInnerMultiplierImpl.cpp */,
+				4068624F1CB6707100211E4E /* IMatrixMultiplier.h */,
+				406862511CB6758900211E4E /* SequentialMatrixMultiplierImpl.h */,
+				406862501CB6758900211E4E /* SequentialMatrixMultiplierImpl.cpp */,
+				406862541CB67B7500211E4E /* CLMatrixMultiplierImpl.h */,
+				406862531CB67B7500211E4E /* CLMatrixMultiplierImpl.cpp */,
+				406862571CB687A600211E4E /* CLLocalizedMatrixMultiplierImpl.h */,
+				406862561CB687A600211E4E /* CLLocalizedMatrixMultiplierImpl.cpp */,
+			);
+			path = consumer;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		402700061C4361F70061BCC9 /* MatrixVectorOpenCL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4027000E1C4361F70061BCC9 /* Build configuration list for PBXNativeTarget "MatrixVectorOpenCL" */;
+			buildPhases = (
+				402700031C4361F70061BCC9 /* Sources */,
+				402700041C4361F70061BCC9 /* Frameworks */,
+				402700051C4361F70061BCC9 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MatrixVectorOpenCL;
+			productName = OpenCLHelloWorld;
+			productReference = 402700071C4361F70061BCC9 /* MatrixVectorOpenCL */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4027FFFF1C4361F70061BCC9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = tbg;
+				TargetAttributes = {
+					402700061C4361F70061BCC9 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 402700021C4361F70061BCC9 /* Build configuration list for PBXProject "MatrixVectorOpenCL" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4027FFFE1C4361F70061BCC9;
+			productRefGroup = 402700081C4361F70061BCC9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				402700061C4361F70061BCC9 /* MatrixVectorOpenCL */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		402700031C4361F70061BCC9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				400A105D1CAA9C58001DBC3D /* matrix_multiple.cl in Sources */,
+				4068624E1CB653DC00211E4E /* SequentialVectorInnerMultiplierImpl.cpp in Sources */,
+				406862581CB687A600211E4E /* CLLocalizedMatrixMultiplierImpl.cpp in Sources */,
+				4068625D1CB7740800211E4E /* matrix_multiply_2d.cl in Sources */,
+				406862481CB646CE00211E4E /* CLVectorInnerMultiplierImpl.cpp in Sources */,
+				4068621B1CB3DECD00211E4E /* SequentialVectorAdder.cpp in Sources */,
+				406862271CB50D3000211E4E /* CLVectorAdder.cpp in Sources */,
+				4068624B1CB64E0400211E4E /* CLLocalizedVectorInnerMultiplierImpl.cpp in Sources */,
+				4027000B1C4361F70061BCC9 /* main.cpp in Sources */,
+				406862421CB641A500211E4E /* vector_inner_product.cl in Sources */,
+				406862551CB67B7500211E4E /* CLMatrixMultiplierImpl.cpp in Sources */,
+				402700161C4363DA0061BCC9 /* HelloWorld.cl in Sources */,
+				406862521CB6758900211E4E /* SequentialMatrixMultiplierImpl.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4027000C1C4361F70061BCC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		4027000D1C4361F70061BCC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4027000F1C4361F70061BCC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "/Users/wws2003/neo-c++/SimpleOpenCLLib/output/Build/Products/Debug";
+				PRODUCT_NAME = MatrixVectorOpenCL;
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "/Users/wws2003/neo-c++/SimpleOpenCLLib/header/common /Users/wws2003/neo-c++/SimpleOpenCLLib/header/abstract /Users/wws2003/neo-c++/SimpleOpenCLLib/header/concrete";
+			};
+			name = Debug;
+		};
+		402700101C4361F70061BCC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "/Users/wws2003/neo-c++/SimpleOpenCLLib/output/Build/Products/Debug";
+				PRODUCT_NAME = MatrixVectorOpenCL;
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "/Users/wws2003/neo-c++/SimpleOpenCLLib/header/common /Users/wws2003/neo-c++/SimpleOpenCLLib/header/abstract /Users/wws2003/neo-c++/SimpleOpenCLLib/header/concrete";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		402700021C4361F70061BCC9 /* Build configuration list for PBXProject "MatrixVectorOpenCL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4027000C1C4361F70061BCC9 /* Debug */,
+				4027000D1C4361F70061BCC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4027000E1C4361F70061BCC9 /* Build configuration list for PBXNativeTarget "MatrixVectorOpenCL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4027000F1C4361F70061BCC9 /* Debug */,
+				402700101C4361F70061BCC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4027FFFF1C4361F70061BCC9 /* Project object */;
+}

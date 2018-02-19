@@ -1,0 +1,307 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4003F7D120304484002BED82 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4003F7D020304484002BED82 /* main.cpp */; };
+		4003F7DF20305BC8002BED82 /* BitonicSorter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4003F7DD20305BC8002BED82 /* BitonicSorter.cpp */; };
+		4003F7E4203096C9002BED82 /* SortingNetworkImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4003F7E3203096C9002BED82 /* SortingNetworkImpl.cpp */; };
+		405891FA2037E4C10016CB28 /* IntSortingNetworkCPUImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405891F82037E4C10016CB28 /* IntSortingNetworkCPUImpl.cpp */; };
+		405891FD2037E5E80016CB28 /* IntSortingNetworkGPUImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405891FB2037E5E80016CB28 /* IntSortingNetworkGPUImpl.cpp */; };
+		405892652039343A0016CB28 /* bitonic_swap2.cl in Sources */ = {isa = PBXBuildFile; fileRef = 405892642039343A0016CB28 /* bitonic_swap2.cl */; };
+		4058926C2039ECC10016CB28 /* IntBitonicSorter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4058926A2039ECC10016CB28 /* IntBitonicSorter.cpp */; };
+		4058926E2039F50E0016CB28 /* libSimpleOpenCLLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 405892622038B3490016CB28 /* libSimpleOpenCLLib.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4003F7CB20304484002BED82 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4003F7CD20304484002BED82 /* BitonicSortOpenCL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BitonicSortOpenCL; sourceTree = BUILT_PRODUCTS_DIR; };
+		4003F7D020304484002BED82 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		4003F7DD20305BC8002BED82 /* BitonicSorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BitonicSorter.cpp; sourceTree = "<group>"; };
+		4003F7DE20305BC8002BED82 /* BitonicSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitonicSorter.h; sourceTree = "<group>"; };
+		4003F7E12030966F002BED82 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		4003F7E2203096B5002BED82 /* SortingNetworkImpl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortingNetworkImpl.h; sourceTree = "<group>"; };
+		4003F7E3203096C9002BED82 /* SortingNetworkImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SortingNetworkImpl.cpp; sourceTree = "<group>"; };
+		4003F7E92031EEF6002BED82 /* SortingNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SortingNetwork.h; sourceTree = "<group>"; };
+		405891F82037E4C10016CB28 /* IntSortingNetworkCPUImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntSortingNetworkCPUImpl.cpp; sourceTree = "<group>"; };
+		405891F92037E4C10016CB28 /* IntSortingNetworkCPUImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntSortingNetworkCPUImpl.h; sourceTree = "<group>"; };
+		405891FB2037E5E80016CB28 /* IntSortingNetworkGPUImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntSortingNetworkGPUImpl.cpp; sourceTree = "<group>"; };
+		405891FC2037E5E80016CB28 /* IntSortingNetworkGPUImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntSortingNetworkGPUImpl.h; sourceTree = "<group>"; };
+		405892622038B3490016CB28 /* libSimpleOpenCLLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSimpleOpenCLLib.a; path = ../SimpleOpenCLLib/output/Build/Products/Debug/libSimpleOpenCLLib.a; sourceTree = "<group>"; };
+		405892642039343A0016CB28 /* bitonic_swap2.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = bitonic_swap2.cl; sourceTree = "<group>"; };
+		4058926A2039ECC10016CB28 /* IntBitonicSorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntBitonicSorter.cpp; sourceTree = "<group>"; };
+		4058926B2039ECC10016CB28 /* IntBitonicSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntBitonicSorter.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4003F7CA20304484002BED82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4058926E2039F50E0016CB28 /* libSimpleOpenCLLib.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4003F7C420304484002BED82 = {
+			isa = PBXGroup;
+			children = (
+				405892622038B3490016CB28 /* libSimpleOpenCLLib.a */,
+				4003F7CF20304484002BED82 /* BitonicSortOpenCL */,
+				4003F7CE20304484002BED82 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4003F7CE20304484002BED82 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4003F7CD20304484002BED82 /* BitonicSortOpenCL */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4003F7CF20304484002BED82 /* BitonicSortOpenCL */ = {
+			isa = PBXGroup;
+			children = (
+				4003F7DA203045D7002BED82 /* kernel */,
+				4003F7D9203045D0002BED82 /* classes */,
+				4003F7D020304484002BED82 /* main.cpp */,
+			);
+			path = BitonicSortOpenCL;
+			sourceTree = "<group>";
+		};
+		4003F7D9203045D0002BED82 /* classes */ = {
+			isa = PBXGroup;
+			children = (
+				4003F7DD20305BC8002BED82 /* BitonicSorter.cpp */,
+				4003F7DE20305BC8002BED82 /* BitonicSorter.h */,
+				4003F7E12030966F002BED82 /* Common.h */,
+				4003F7E92031EEF6002BED82 /* SortingNetwork.h */,
+				4003F7E2203096B5002BED82 /* SortingNetworkImpl.h */,
+				4003F7E3203096C9002BED82 /* SortingNetworkImpl.cpp */,
+				405891F82037E4C10016CB28 /* IntSortingNetworkCPUImpl.cpp */,
+				405891F92037E4C10016CB28 /* IntSortingNetworkCPUImpl.h */,
+				405891FB2037E5E80016CB28 /* IntSortingNetworkGPUImpl.cpp */,
+				405891FC2037E5E80016CB28 /* IntSortingNetworkGPUImpl.h */,
+				4058926A2039ECC10016CB28 /* IntBitonicSorter.cpp */,
+				4058926B2039ECC10016CB28 /* IntBitonicSorter.h */,
+			);
+			name = classes;
+			sourceTree = "<group>";
+		};
+		4003F7DA203045D7002BED82 /* kernel */ = {
+			isa = PBXGroup;
+			children = (
+				405892642039343A0016CB28 /* bitonic_swap2.cl */,
+			);
+			name = kernel;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4003F7CC20304484002BED82 /* BitonicSortOpenCL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4003F7D420304484002BED82 /* Build configuration list for PBXNativeTarget "BitonicSortOpenCL" */;
+			buildPhases = (
+				4003F7C920304484002BED82 /* Sources */,
+				4003F7CA20304484002BED82 /* Frameworks */,
+				4003F7CB20304484002BED82 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BitonicSortOpenCL;
+			productName = BitonicSortOpenCL;
+			productReference = 4003F7CD20304484002BED82 /* BitonicSortOpenCL */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4003F7C520304484002BED82 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = tbg;
+				TargetAttributes = {
+					4003F7CC20304484002BED82 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 4003F7C820304484002BED82 /* Build configuration list for PBXProject "BitonicSortOpenCL" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4003F7C420304484002BED82;
+			productRefGroup = 4003F7CE20304484002BED82 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4003F7CC20304484002BED82 /* BitonicSortOpenCL */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4003F7C920304484002BED82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4003F7E4203096C9002BED82 /* SortingNetworkImpl.cpp in Sources */,
+				4003F7DF20305BC8002BED82 /* BitonicSorter.cpp in Sources */,
+				405892652039343A0016CB28 /* bitonic_swap2.cl in Sources */,
+				4058926C2039ECC10016CB28 /* IntBitonicSorter.cpp in Sources */,
+				405891FA2037E4C10016CB28 /* IntSortingNetworkCPUImpl.cpp in Sources */,
+				405891FD2037E5E80016CB28 /* IntSortingNetworkGPUImpl.cpp in Sources */,
+				4003F7D120304484002BED82 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4003F7D220304484002BED82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		4003F7D320304484002BED82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4003F7D520304484002BED82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "/Users/wws2003/neo-c++/SimpleOpenCLLib/output/Build/Products/Debug";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "/Users/wws2003/neo-c++/SimpleOpenCLLib/header/common /Users/wws2003/neo-c++/SimpleOpenCLLib/header/abstract /Users/wws2003/neo-c++/SimpleOpenCLLib/header/concrete";
+			};
+			name = Debug;
+		};
+		4003F7D620304484002BED82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "/Users/wws2003/neo-c++/SimpleOpenCLLib/output/Build/Products/Debug";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "/Users/wws2003/neo-c++/SimpleOpenCLLib/header/common /Users/wws2003/neo-c++/SimpleOpenCLLib/header/abstract /Users/wws2003/neo-c++/SimpleOpenCLLib/header/concrete";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4003F7C820304484002BED82 /* Build configuration list for PBXProject "BitonicSortOpenCL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4003F7D220304484002BED82 /* Debug */,
+				4003F7D320304484002BED82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4003F7D420304484002BED82 /* Build configuration list for PBXNativeTarget "BitonicSortOpenCL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4003F7D520304484002BED82 /* Debug */,
+				4003F7D620304484002BED82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4003F7C520304484002BED82 /* Project object */;
+}

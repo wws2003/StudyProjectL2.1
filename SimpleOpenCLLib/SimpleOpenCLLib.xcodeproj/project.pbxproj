@@ -1,0 +1,428 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		405892252038AB150016CB28 /* ISimpleCLExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 4058921F2038AB150016CB28 /* ISimpleCLExecutor.h */; };
+		405892262038AB150016CB28 /* IKernelArgumentContainerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 405892202038AB150016CB28 /* IKernelArgumentContainerFactory.h */; };
+		405892272038AB150016CB28 /* IKernelArgumentContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 405892212038AB150016CB28 /* IKernelArgumentContainer.h */; };
+		405892282038AB150016CB28 /* ISimpleCLProgram.h in Headers */ = {isa = PBXBuildFile; fileRef = 405892222038AB150016CB28 /* ISimpleCLProgram.h */; };
+		405892292038AB150016CB28 /* ISimpleCLProgramFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 405892232038AB150016CB28 /* ISimpleCLProgramFactory.h */; };
+		4058922A2038AB150016CB28 /* ISimpleCLExecutorFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 405892242038AB150016CB28 /* ISimpleCLExecutorFactory.h */; };
+		4058922F2038AB270016CB28 /* WorkDims.h in Headers */ = {isa = PBXBuildFile; fileRef = 4058922B2038AB270016CB28 /* WorkDims.h */; };
+		405892302038AB270016CB28 /* GenericBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4058922C2038AB270016CB28 /* GenericBuffer.hpp */; };
+		405892312038AB270016CB28 /* common.h in Headers */ = {isa = PBXBuildFile; fileRef = 4058922D2038AB270016CB28 /* common.h */; };
+		405892322038AB270016CB28 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 4058922E2038AB270016CB28 /* Util.h */; };
+		4058923C2038AB610016CB28 /* SimpleCLProgramImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 405892332038AB610016CB28 /* SimpleCLProgramImpl.h */; };
+		4058923D2038AB610016CB28 /* NormalBufferKernelArgumentContainerImpl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 405892342038AB610016CB28 /* NormalBufferKernelArgumentContainerImpl.hpp */; };
+		4058923E2038AB610016CB28 /* KernelArgumentContainerFactoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 405892352038AB610016CB28 /* KernelArgumentContainerFactoryImpl.h */; };
+		4058923F2038AB610016CB28 /* CLMemKernelArgumentContainerImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 405892362038AB610016CB28 /* CLMemKernelArgumentContainerImpl.h */; };
+		405892402038AB610016CB28 /* LocalMemKernelArgumentContainerImpl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 405892372038AB610016CB28 /* LocalMemKernelArgumentContainerImpl.hpp */; };
+		405892412038AB610016CB28 /* SimpleCLProgramFactoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 405892382038AB610016CB28 /* SimpleCLProgramFactoryImpl.h */; };
+		405892422038AB610016CB28 /* KernelExecutable.h in Headers */ = {isa = PBXBuildFile; fileRef = 405892392038AB610016CB28 /* KernelExecutable.h */; };
+		405892432038AB610016CB28 /* SimpleCLExecutorImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4058923A2038AB610016CB28 /* SimpleCLExecutorImpl.h */; };
+		405892442038AB610016CB28 /* SimpleCLExecutorFactoryImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 4058923B2038AB610016CB28 /* SimpleCLExecutorFactoryImpl.h */; };
+		405892492038ABC10016CB28 /* SimplePrototypedCLEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 405892472038ABC10016CB28 /* SimplePrototypedCLEngine.h */; };
+		4058924A2038ABC10016CB28 /* AbstractCLEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 405892482038ABC10016CB28 /* AbstractCLEngine.h */; };
+		405892542038AC410016CB28 /* KernelArgumentContainerFactoryImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4058924B2038AC410016CB28 /* KernelArgumentContainerFactoryImpl.cpp */; };
+		405892552038AC410016CB28 /* SimpleCLExecutorImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4058924C2038AC410016CB28 /* SimpleCLExecutorImpl.cpp */; };
+		405892562038AC410016CB28 /* SimplePrototypedCLEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4058924D2038AC410016CB28 /* SimplePrototypedCLEngine.cpp */; };
+		405892572038AC410016CB28 /* SimpleCLProgramImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4058924E2038AC410016CB28 /* SimpleCLProgramImpl.cpp */; };
+		405892582038AC410016CB28 /* AbstractCLEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4058924F2038AC410016CB28 /* AbstractCLEngine.cpp */; };
+		405892592038AC410016CB28 /* CLMemKernelArgumentContainerImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405892502038AC410016CB28 /* CLMemKernelArgumentContainerImpl.cpp */; };
+		4058925A2038AC410016CB28 /* SimpleCLProgramFactoryImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405892512038AC410016CB28 /* SimpleCLProgramFactoryImpl.cpp */; };
+		4058925B2038AC410016CB28 /* KernelExecutable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405892522038AC410016CB28 /* KernelExecutable.cpp */; };
+		4058925C2038AC410016CB28 /* SimpleCLExecutorFactoryImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405892532038AC410016CB28 /* SimpleCLExecutorFactoryImpl.cpp */; };
+		4058925E2038AD530016CB28 /* OpenCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4058925D2038AD530016CB28 /* OpenCL.framework */; };
+		405892712039F6B20016CB28 /* WorkDims.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4058926F2039F6B20016CB28 /* WorkDims.cpp */; };
+		405892722039F6B20016CB28 /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405892702039F6B20016CB28 /* Util.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		405892072038A9720016CB28 /* libSimpleOpenCLLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSimpleOpenCLLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4058921F2038AB150016CB28 /* ISimpleCLExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISimpleCLExecutor.h; sourceTree = "<group>"; };
+		405892202038AB150016CB28 /* IKernelArgumentContainerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKernelArgumentContainerFactory.h; sourceTree = "<group>"; };
+		405892212038AB150016CB28 /* IKernelArgumentContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IKernelArgumentContainer.h; sourceTree = "<group>"; };
+		405892222038AB150016CB28 /* ISimpleCLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISimpleCLProgram.h; sourceTree = "<group>"; };
+		405892232038AB150016CB28 /* ISimpleCLProgramFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISimpleCLProgramFactory.h; sourceTree = "<group>"; };
+		405892242038AB150016CB28 /* ISimpleCLExecutorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISimpleCLExecutorFactory.h; sourceTree = "<group>"; };
+		4058922B2038AB270016CB28 /* WorkDims.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkDims.h; sourceTree = "<group>"; };
+		4058922C2038AB270016CB28 /* GenericBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GenericBuffer.hpp; sourceTree = "<group>"; };
+		4058922D2038AB270016CB28 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		4058922E2038AB270016CB28 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		405892332038AB610016CB28 /* SimpleCLProgramImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleCLProgramImpl.h; sourceTree = "<group>"; };
+		405892342038AB610016CB28 /* NormalBufferKernelArgumentContainerImpl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NormalBufferKernelArgumentContainerImpl.hpp; sourceTree = "<group>"; };
+		405892352038AB610016CB28 /* KernelArgumentContainerFactoryImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KernelArgumentContainerFactoryImpl.h; sourceTree = "<group>"; };
+		405892362038AB610016CB28 /* CLMemKernelArgumentContainerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLMemKernelArgumentContainerImpl.h; sourceTree = "<group>"; };
+		405892372038AB610016CB28 /* LocalMemKernelArgumentContainerImpl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LocalMemKernelArgumentContainerImpl.hpp; sourceTree = "<group>"; };
+		405892382038AB610016CB28 /* SimpleCLProgramFactoryImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleCLProgramFactoryImpl.h; sourceTree = "<group>"; };
+		405892392038AB610016CB28 /* KernelExecutable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KernelExecutable.h; sourceTree = "<group>"; };
+		4058923A2038AB610016CB28 /* SimpleCLExecutorImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleCLExecutorImpl.h; sourceTree = "<group>"; };
+		4058923B2038AB610016CB28 /* SimpleCLExecutorFactoryImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleCLExecutorFactoryImpl.h; sourceTree = "<group>"; };
+		405892472038ABC10016CB28 /* SimplePrototypedCLEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePrototypedCLEngine.h; sourceTree = "<group>"; };
+		405892482038ABC10016CB28 /* AbstractCLEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractCLEngine.h; sourceTree = "<group>"; };
+		4058924B2038AC410016CB28 /* KernelArgumentContainerFactoryImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KernelArgumentContainerFactoryImpl.cpp; sourceTree = "<group>"; };
+		4058924C2038AC410016CB28 /* SimpleCLExecutorImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleCLExecutorImpl.cpp; sourceTree = "<group>"; };
+		4058924D2038AC410016CB28 /* SimplePrototypedCLEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimplePrototypedCLEngine.cpp; sourceTree = "<group>"; };
+		4058924E2038AC410016CB28 /* SimpleCLProgramImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleCLProgramImpl.cpp; sourceTree = "<group>"; };
+		4058924F2038AC410016CB28 /* AbstractCLEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractCLEngine.cpp; sourceTree = "<group>"; };
+		405892502038AC410016CB28 /* CLMemKernelArgumentContainerImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CLMemKernelArgumentContainerImpl.cpp; sourceTree = "<group>"; };
+		405892512038AC410016CB28 /* SimpleCLProgramFactoryImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleCLProgramFactoryImpl.cpp; sourceTree = "<group>"; };
+		405892522038AC410016CB28 /* KernelExecutable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KernelExecutable.cpp; sourceTree = "<group>"; };
+		405892532038AC410016CB28 /* SimpleCLExecutorFactoryImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleCLExecutorFactoryImpl.cpp; sourceTree = "<group>"; };
+		4058925D2038AD530016CB28 /* OpenCL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCL.framework; path = System/Library/Frameworks/OpenCL.framework; sourceTree = SDKROOT; };
+		4058926F2039F6B20016CB28 /* WorkDims.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WorkDims.cpp; sourceTree = "<group>"; };
+		405892702039F6B20016CB28 /* Util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Util.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		405892042038A9720016CB28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4058925E2038AD530016CB28 /* OpenCL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		405891FE2038A9720016CB28 = {
+			isa = PBXGroup;
+			children = (
+				405892612038B14F0016CB28 /* output */,
+				4058925D2038AD530016CB28 /* OpenCL.framework */,
+				405892132038A9DA0016CB28 /* src */,
+				405892122038A9CC0016CB28 /* header */,
+				405892082038A9720016CB28 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		405892082038A9720016CB28 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				405892072038A9720016CB28 /* libSimpleOpenCLLib.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		405892122038A9CC0016CB28 /* header */ = {
+			isa = PBXGroup;
+			children = (
+				4058921E2038AAF30016CB28 /* concrete */,
+				4058921D2038AAE40016CB28 /* abstract */,
+				4058921C2038AAD60016CB28 /* common */,
+			);
+			path = header;
+			sourceTree = "<group>";
+		};
+		405892132038A9DA0016CB28 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				405892462038AB850016CB28 /* concrete */,
+				405892452038AB790016CB28 /* common */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		4058921C2038AAD60016CB28 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				4058922B2038AB270016CB28 /* WorkDims.h */,
+				4058922C2038AB270016CB28 /* GenericBuffer.hpp */,
+				4058922D2038AB270016CB28 /* common.h */,
+				4058922E2038AB270016CB28 /* Util.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		4058921D2038AAE40016CB28 /* abstract */ = {
+			isa = PBXGroup;
+			children = (
+				4058921F2038AB150016CB28 /* ISimpleCLExecutor.h */,
+				405892202038AB150016CB28 /* IKernelArgumentContainerFactory.h */,
+				405892212038AB150016CB28 /* IKernelArgumentContainer.h */,
+				405892222038AB150016CB28 /* ISimpleCLProgram.h */,
+				405892232038AB150016CB28 /* ISimpleCLProgramFactory.h */,
+				405892242038AB150016CB28 /* ISimpleCLExecutorFactory.h */,
+			);
+			path = abstract;
+			sourceTree = "<group>";
+		};
+		4058921E2038AAF30016CB28 /* concrete */ = {
+			isa = PBXGroup;
+			children = (
+				405892472038ABC10016CB28 /* SimplePrototypedCLEngine.h */,
+				405892482038ABC10016CB28 /* AbstractCLEngine.h */,
+				405892332038AB610016CB28 /* SimpleCLProgramImpl.h */,
+				405892342038AB610016CB28 /* NormalBufferKernelArgumentContainerImpl.hpp */,
+				405892352038AB610016CB28 /* KernelArgumentContainerFactoryImpl.h */,
+				405892362038AB610016CB28 /* CLMemKernelArgumentContainerImpl.h */,
+				405892372038AB610016CB28 /* LocalMemKernelArgumentContainerImpl.hpp */,
+				405892382038AB610016CB28 /* SimpleCLProgramFactoryImpl.h */,
+				405892392038AB610016CB28 /* KernelExecutable.h */,
+				4058923A2038AB610016CB28 /* SimpleCLExecutorImpl.h */,
+				4058923B2038AB610016CB28 /* SimpleCLExecutorFactoryImpl.h */,
+			);
+			path = concrete;
+			sourceTree = "<group>";
+		};
+		405892452038AB790016CB28 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				4058926F2039F6B20016CB28 /* WorkDims.cpp */,
+				405892702039F6B20016CB28 /* Util.cpp */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		405892462038AB850016CB28 /* concrete */ = {
+			isa = PBXGroup;
+			children = (
+				4058924B2038AC410016CB28 /* KernelArgumentContainerFactoryImpl.cpp */,
+				4058924C2038AC410016CB28 /* SimpleCLExecutorImpl.cpp */,
+				4058924D2038AC410016CB28 /* SimplePrototypedCLEngine.cpp */,
+				4058924E2038AC410016CB28 /* SimpleCLProgramImpl.cpp */,
+				4058924F2038AC410016CB28 /* AbstractCLEngine.cpp */,
+				405892502038AC410016CB28 /* CLMemKernelArgumentContainerImpl.cpp */,
+				405892512038AC410016CB28 /* SimpleCLProgramFactoryImpl.cpp */,
+				405892522038AC410016CB28 /* KernelExecutable.cpp */,
+				405892532038AC410016CB28 /* SimpleCLExecutorFactoryImpl.cpp */,
+			);
+			path = concrete;
+			sourceTree = "<group>";
+		};
+		405892612038B14F0016CB28 /* output */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = output;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		405892052038A9720016CB28 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				405892322038AB270016CB28 /* Util.h in Headers */,
+				405892252038AB150016CB28 /* ISimpleCLExecutor.h in Headers */,
+				405892402038AB610016CB28 /* LocalMemKernelArgumentContainerImpl.hpp in Headers */,
+				405892422038AB610016CB28 /* KernelExecutable.h in Headers */,
+				405892312038AB270016CB28 /* common.h in Headers */,
+				4058923C2038AB610016CB28 /* SimpleCLProgramImpl.h in Headers */,
+				4058922F2038AB270016CB28 /* WorkDims.h in Headers */,
+				4058923D2038AB610016CB28 /* NormalBufferKernelArgumentContainerImpl.hpp in Headers */,
+				4058922A2038AB150016CB28 /* ISimpleCLExecutorFactory.h in Headers */,
+				405892272038AB150016CB28 /* IKernelArgumentContainer.h in Headers */,
+				4058924A2038ABC10016CB28 /* AbstractCLEngine.h in Headers */,
+				405892432038AB610016CB28 /* SimpleCLExecutorImpl.h in Headers */,
+				405892282038AB150016CB28 /* ISimpleCLProgram.h in Headers */,
+				4058923F2038AB610016CB28 /* CLMemKernelArgumentContainerImpl.h in Headers */,
+				4058923E2038AB610016CB28 /* KernelArgumentContainerFactoryImpl.h in Headers */,
+				405892292038AB150016CB28 /* ISimpleCLProgramFactory.h in Headers */,
+				405892412038AB610016CB28 /* SimpleCLProgramFactoryImpl.h in Headers */,
+				405892302038AB270016CB28 /* GenericBuffer.hpp in Headers */,
+				405892492038ABC10016CB28 /* SimplePrototypedCLEngine.h in Headers */,
+				405892262038AB150016CB28 /* IKernelArgumentContainerFactory.h in Headers */,
+				405892442038AB610016CB28 /* SimpleCLExecutorFactoryImpl.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		405892062038A9720016CB28 /* SimpleOpenCLLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4058920B2038A9720016CB28 /* Build configuration list for PBXNativeTarget "SimpleOpenCLLib" */;
+			buildPhases = (
+				405892032038A9720016CB28 /* Sources */,
+				405892042038A9720016CB28 /* Frameworks */,
+				405892052038A9720016CB28 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SimpleOpenCLLib;
+			productName = SimpleOpenCLLib;
+			productReference = 405892072038A9720016CB28 /* libSimpleOpenCLLib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		405891FF2038A9720016CB28 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = hpg;
+				TargetAttributes = {
+					405892062038A9720016CB28 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = 405892022038A9720016CB28 /* Build configuration list for PBXProject "SimpleOpenCLLib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 405891FE2038A9720016CB28;
+			productRefGroup = 405892082038A9720016CB28 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				405892062038A9720016CB28 /* SimpleOpenCLLib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		405892032038A9720016CB28 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4058925B2038AC410016CB28 /* KernelExecutable.cpp in Sources */,
+				405892542038AC410016CB28 /* KernelArgumentContainerFactoryImpl.cpp in Sources */,
+				4058925C2038AC410016CB28 /* SimpleCLExecutorFactoryImpl.cpp in Sources */,
+				405892562038AC410016CB28 /* SimplePrototypedCLEngine.cpp in Sources */,
+				4058925A2038AC410016CB28 /* SimpleCLProgramFactoryImpl.cpp in Sources */,
+				405892592038AC410016CB28 /* CLMemKernelArgumentContainerImpl.cpp in Sources */,
+				405892722039F6B20016CB28 /* Util.cpp in Sources */,
+				405892582038AC410016CB28 /* AbstractCLEngine.cpp in Sources */,
+				405892552038AC410016CB28 /* SimpleCLExecutorImpl.cpp in Sources */,
+				405892572038AC410016CB28 /* SimpleCLProgramImpl.cpp in Sources */,
+				405892712039F6B20016CB28 /* WorkDims.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		405892092038A9720016CB28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		4058920A2038A9720016CB28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		4058920C2038A9720016CB28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4058920D2038A9720016CB28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		405892022038A9720016CB28 /* Build configuration list for PBXProject "SimpleOpenCLLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				405892092038A9720016CB28 /* Debug */,
+				4058920A2038A9720016CB28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4058920B2038A9720016CB28 /* Build configuration list for PBXNativeTarget "SimpleOpenCLLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4058920C2038A9720016CB28 /* Debug */,
+				4058920D2038A9720016CB28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 405891FF2038A9720016CB28 /* Project object */;
+}
