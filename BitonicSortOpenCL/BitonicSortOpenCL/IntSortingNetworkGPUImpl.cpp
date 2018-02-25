@@ -50,6 +50,8 @@ void IntSortingNetworkGPUImpl::swap(int swapDistance,
     
     // Excute kernel for result
     // TODO Properly handle timeSpec
+
+    
     TimeSpec timeSpec;
     pCLEngine->executeCLKernelForResult(srcProgramPath, kernelName, m_executingDims, m_deviceType, &timeSpec);
     

@@ -25,6 +25,7 @@ CLMemKernelArgumentContainerImpl::~CLMemKernelArgumentContainerImpl() {
 
 void CLMemKernelArgumentContainerImpl::createKernelArgument(cl_context context, void** pData, size_t* pSize) {
     cl_int errCode;
+    // Create buffer (in global memory)
     cl_mem memBuffer = clCreateBuffer(context,
                                       m_memFlags,
                                       m_size,

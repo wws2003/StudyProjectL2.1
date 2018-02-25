@@ -131,8 +131,11 @@ void testBitonicSortingNetwork(SortingNetworkPtr<int> pSortingNetwork) {
     pSortingNetwork->collect(sortedEntries);
     
     size_t elementCnt = sortedEntries.size();
+    
+    assert(elementCnt == ARRAY_SIZE);
+    
     for(unsigned int i = 0; i < elementCnt - 1; i++) {
-        assert(sortedEntries[i] <= sortedEntries[i + 1]);
+        assert(sortedEntries[i] < sortedEntries[i + 1]);
     }
 }
 

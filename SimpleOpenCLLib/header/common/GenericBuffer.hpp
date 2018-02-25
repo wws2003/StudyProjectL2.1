@@ -42,7 +42,7 @@ public:
         m_autoRelease = autoRelease;
     }
     
-    GenericBuffer(const std::vector<T> elements, bool autoRelease) {
+    GenericBuffer(const std::vector<T>& elements, bool autoRelease) {
         size_t size = elements.size();
         m_size = size;
         m_array = new T[size];

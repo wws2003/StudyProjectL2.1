@@ -1,6 +1,10 @@
 # Prerequisites
 *.d
 
+# Output directory
+SimpleOpenCLLib/output
+SimpleOpenCLLib/SimpleOpenCLLib.xcodeproj/xcuserdata
+
 # Compiled Object files
 *.slo
 *.lo
