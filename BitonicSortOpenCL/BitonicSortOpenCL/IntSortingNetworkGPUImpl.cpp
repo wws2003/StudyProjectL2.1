@@ -38,10 +38,14 @@ void IntSortingNetworkGPUImpl::swap(int swapDistance,
     HostBufferSourcePtr pKernelInOutBuffer = &m_elementBuffer;
     
     // Create CL engine
-    ConstHostBufferSources inputs({&kernelSwapDistance, &kernelOrderKeptSwapCnt, &isFirstOrderAscending});
-    HostBufferSources outputs({pKernelInOutBuffer});
+    ConstHostBufferSources inputs({&kernelSwapDistance,
+        &kernelOrderKeptSwapCnt,
+        &isFirstOrderAscending});
     ParamTypes paramTypes({PT_CONSTANT, PT_CONSTANT, PT_CONSTANT, PT_GLOBAL_INOUT});
+    
+    HostBufferSources outputs({pKernelInOutBuffer});
     OutputParamIndices outputParamsIndices({3});
+    
     CLEnginePtr pCLEngine = CLEnginePtr(new SimplePrototypedCLEngine(m_pSimpleExecutorFactory,
                                                                      inputs,
                                                                      outputs,
@@ -65,5 +69,5 @@ void IntSortingNetworkGPUImpl::collect(ElementList<int>& elements) const {
     m_elementBuffer.toHostOutputBuffer(hostBuffer);
     // Copy to output parameters
     int* dataArray = (int*)hostBuffer.m_data;
-    elements.insert(elements.begin(), dataArray, dataArray + hostBuffer.m_arraySize + 1);
+    elements.insert(elements.begin(), dataArray, dataArray + hostBuffer.m_arraySize);
 }

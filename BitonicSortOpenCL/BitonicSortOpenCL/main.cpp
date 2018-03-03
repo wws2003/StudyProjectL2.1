@@ -24,10 +24,23 @@
 
 using namespace std;
 
+#define SMALL_SIZE_TO_DEBUG 1
+
+#ifdef SMALL_SIZE_TO_DEBUG
+
+#define ARRAY_SIZE (16) // 4 * 4 = 16
+#define GLOBAL_SIZE_0 (4)
+#define GLOBAL_SIZE_1 (4)
+#define LOCAL_SIZE (2)
+
+#else
+
 #define ARRAY_SIZE (262144) // 512 * 512 = 262144
 #define GLOBAL_SIZE_0 (512)
 #define GLOBAL_SIZE_1 (512)
 #define LOCAL_SIZE (8)
+
+#endif
 
 /**
  * Initialize the test data

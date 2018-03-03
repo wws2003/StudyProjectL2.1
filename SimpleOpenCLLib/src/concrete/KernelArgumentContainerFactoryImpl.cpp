@@ -50,7 +50,7 @@ cl_mem_flags KernelArgumentContainerFactoryImpl::computeMemFlags(ParamType param
         return CL_MEM_READ_WRITE;
     }
     if (paramType == PT_GLOBAL_INOUT) {
-        return CL_MEM_READ_WRITE;
+        return CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR;
     }
     logAndThrow("No such a proper param type for CL_MEM object");
     return 0;

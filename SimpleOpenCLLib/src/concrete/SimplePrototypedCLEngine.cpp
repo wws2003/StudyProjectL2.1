@@ -26,11 +26,13 @@ void SimplePrototypedCLEngine::initProgramPrototype(std::string kernelName, Prog
 void SimplePrototypedCLEngine::initCLInputParams(HostInputParams& hostInputParams) {
     unsigned int paramTypeIndex = 0;
     
+    // Set input buffers to input params
     for (unsigned int i = 0; i < m_inputs.size(); i++) {
         HostBufferExt inputBuffer;
         m_inputs[i]->toHostInputBuffer(m_paramTypes[paramTypeIndex++], inputBuffer);
         hostInputParams.push_back(inputBuffer);
     }
+    // Also set output bufffers to input params so that device can write the result
     for (unsigned int i = 0; i < m_outputs.size(); i++) {
         HostBufferExt inputBuffer;
         m_outputs[i]->toHostInputBuffer(m_paramTypes[paramTypeIndex++], inputBuffer);
@@ -40,6 +42,7 @@ void SimplePrototypedCLEngine::initCLInputParams(HostInputParams& hostInputParam
 
 void SimplePrototypedCLEngine::initCLOutputParams(HostOutputParams& outputs) {
     
+    // Only set output bufferes to host outputs
     for (unsigned int i = 0; i < m_outputs.size(); i++) {
         HostBuffer outputBuffer;
         m_outputs[i]->toHostOutputBuffer(outputBuffer);
