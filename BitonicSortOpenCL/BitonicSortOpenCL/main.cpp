@@ -24,14 +24,14 @@
 
 using namespace std;
 
-#define SMALL_SIZE_TO_DEBUG 1
+#define SMALL_SIZE_TO_DEBUG 0
 
-#ifdef SMALL_SIZE_TO_DEBUG
+#if SMALL_SIZE_TO_DEBUG
 
-#define ARRAY_SIZE (16) // 4 * 4 = 16
-#define GLOBAL_SIZE_0 (4)
-#define GLOBAL_SIZE_1 (4)
-#define LOCAL_SIZE (2)
+#define ARRAY_SIZE (256) // 16 * 16  = 256
+#define GLOBAL_SIZE_0 (16)
+#define GLOBAL_SIZE_1 (16)
+#define LOCAL_SIZE (8)
 
 #else
 
