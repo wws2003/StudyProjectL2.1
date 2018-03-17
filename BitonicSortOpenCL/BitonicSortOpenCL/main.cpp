@@ -14,9 +14,10 @@
 #include <algorithm>
 #include <functional>
 #include <cassert>
-#include "IntBitonicSorter.h"
+#include "SortingNetworkBasedIntBitonicSorter.h"
 #include "IntSortingNetworkCPUImpl.h"
 #include "IntSortingNetworkGPUImpl.h"
+#include "IntBitonicGPUSorter.h"
 #include "SimpleCLProgramFactoryImpl.h"
 #include "SimpleCLExecutorImpl.h"
 #include "SimpleCLExecutorFactoryImpl.h"
@@ -55,16 +56,29 @@ void initTestData(ElementList<int>& entries);
 void testBitonicSortCPU(const ElementList<int>& entries);
 
 /**
- * Test bitonic sort on GPUs
+ * Test bitonic sort on GPUs using sorting network
+ * @param entries
+ */
+void testSortingNetworkBasedBitonicSortGPU(const ElementList<int>& entries);
+
+/**
+ * Test bitonic sort on GPUs without using sorting network
  * @param entries
  */
 void testBitonicSortGPU(const ElementList<int>& entries);
 
 /**
  * Test bitonic sorting network
+ * @param entries
  * @param pSortingNetwork
  */
-void testBitonicSortingNetwork(SortingNetworkPtr<int> pSortingNetwork);
+void testBitonicSortingNetwork(const ElementList<int>& entries, SortingNetworkPtr<int> pSortingNetwork);
+
+/**
+ * Test bitonic sorter
+ * @param entries
+ */
+void testSorter(ISorter<int>* pSorter, const ElementList<int>& entries);
 
 /**
  * Print timespec info
@@ -79,10 +93,14 @@ int main() {
     initTestData(entries);
     testBitonicSortCPU(entries);
     
-    // GPU test
+    // GPU test (using sorting network)
+    initTestData(entries);
+    testSortingNetworkBasedBitonicSortGPU(entries);
+    
+    // GPU test (do not use sorting network)
     initTestData(entries);
     testBitonicSortGPU(entries);
-    
+
     std::cout << "Finish testing bitonic sort\n";
     return 0;
 }
@@ -100,13 +118,13 @@ void initTestData(ElementList<int>& entries) {
 
 void testBitonicSortCPU(const ElementList<int>& entries) {
     // Create CPU sorting network
-    SortingNetworkPtr<int> pSortingNetwork = SortingNetworkPtr<int>(new IntSortingNetworkCPUImpl(entries));
+    SortingNetworkPtr<int> pSortingNetwork = SortingNetworkPtr<int>(new IntSortingNetworkCPUImpl());
     
     // Test the sorting network in the sort function
     TimeSpec timeSpec;
     {
         ScopeTimer scopeTimer(&timeSpec);
-        testBitonicSortingNetwork(pSortingNetwork);
+        testBitonicSortingNetwork(entries, pSortingNetwork);
     }
     printTimeSpec("CPU Bitonic sort time", timeSpec);
     
@@ -114,22 +132,22 @@ void testBitonicSortCPU(const ElementList<int>& entries) {
     freePtr(pSortingNetwork);
 }
 
-void testBitonicSortGPU(const ElementList<int>& entries) {
+void testSortingNetworkBasedBitonicSortGPU(const ElementList<int>& entries) {
     // Create GPU sorting network
     SimpleCLProgramFactoryPtr pProgramFactory = SimpleCLProgramFactoryPtr(new SimpleCLProgramFactoryImpl());
     SimpleCLExecutorFactoryPtr pSimpleExecutorFactory = SimpleCLExecutorFactoryPtr(new SimpleCLExecutorFactoryImpl(pProgramFactory));
     
     WorkDims workDims({GLOBAL_SIZE_0, GLOBAL_SIZE_1}, {LOCAL_SIZE, LOCAL_SIZE});
     cl_device_type deviceType = CL_DEVICE_TYPE_GPU;
-    SortingNetworkPtr<int> pSortingNetwork = SortingNetworkPtr<int>(new IntSortingNetworkGPUImpl(entries, pSimpleExecutorFactory, workDims, deviceType));
+    SortingNetworkPtr<int> pSortingNetwork = SortingNetworkPtr<int>(new IntSortingNetworkGPUImpl(pSimpleExecutorFactory, workDims, deviceType));
 
     // Test the sorting network in the sort function
     TimeSpec timeSpec;
     {
         ScopeTimer scopeTimer(&timeSpec);
-        testBitonicSortingNetwork(pSortingNetwork);
+        testBitonicSortingNetwork(entries, pSortingNetwork);
     }
-    printTimeSpec("GPU Bitonic sort time", timeSpec);
+    printTimeSpec("GPU Bitonic sort time based-on sorting network", timeSpec);
 
     // Release
     freePtr(pSortingNetwork);
@@ -137,11 +155,38 @@ void testBitonicSortGPU(const ElementList<int>& entries) {
     freePtr(pProgramFactory);
 }
 
-void testBitonicSortingNetwork(SortingNetworkPtr<int> pSortingNetwork) {
-    BitonicSorter<int> bitonicSorter;
-    bitonicSorter.sort(pSortingNetwork, SortOrder::ASC);
+void testBitonicSortGPU(const ElementList<int>& entries) {
+    // Create GPU bitonic sorter
+    SimpleCLProgramFactoryPtr pProgramFactory = SimpleCLProgramFactoryPtr(new SimpleCLProgramFactoryImpl());
+    SimpleCLExecutorFactoryPtr pSimpleExecutorFactory = SimpleCLExecutorFactoryPtr(new SimpleCLExecutorFactoryImpl(pProgramFactory));
+    
+    WorkDims workDims({GLOBAL_SIZE_0, GLOBAL_SIZE_1}, {LOCAL_SIZE, LOCAL_SIZE});
+    cl_device_type deviceType = CL_DEVICE_TYPE_GPU;
+    
+    IntBitonicGPUSorter sorter(pSimpleExecutorFactory, workDims, deviceType);
+    // Test the sorter
+    TimeSpec timeSpec;
+    {
+        ScopeTimer scopeTimer(&timeSpec);
+        testSorter(&sorter, entries);
+    }
+    printTimeSpec("GPU Bitonic sort time", timeSpec);
+    
+    // Release
+    freePtr(pSimpleExecutorFactory);
+    freePtr(pProgramFactory);
+}
+
+void testBitonicSortingNetwork(const ElementList<int>& entries,
+                               SortingNetworkPtr<int> pSortingNetwork) {
+    SortingNetworkBasedBitonicSorter<int> bitonicSorter(pSortingNetwork);
+    testSorter(&bitonicSorter, entries);
+}
+
+void testSorter(ISorter<int>* pSorter, const ElementList<int>& entries) {
     ElementList<int> sortedEntries;
-    pSortingNetwork->collect(sortedEntries);
+    
+    pSorter->sort(entries, sortedEntries, SortOrder::ASC);
     
     size_t elementCnt = sortedEntries.size();
     

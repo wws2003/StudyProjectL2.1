@@ -16,10 +16,18 @@
 
 class IntSortingNetworkGPUImpl : public SortingNetworkImpl<int> {
 public:
-    IntSortingNetworkGPUImpl(const ElementList<int>& elements,
-                             SimpleCLExecutorFactoryPtr pSimpleExecutorFactory,
+    IntSortingNetworkGPUImpl(SimpleCLExecutorFactoryPtr pSimpleExecutorFactory,
                              const WorkDims& workDims,
                              cl_device_type deviceType);
+    
+    virtual ~IntSortingNetworkGPUImpl();
+    
+    /**
+     * @Override
+     * Set the elements to the internal sorting network
+     * @param elements
+     */
+    virtual void set(const ElementList<int>& elements);
     
     /**
      * @Override
@@ -43,12 +51,14 @@ public:
     
 private:
     // CL services and configurations
+    const std::string m_programName;
+    const std::string m_kernelName;
     SimpleCLExecutorFactoryPtr m_pSimpleExecutorFactory;
     WorkDims m_executingDims;
     cl_device_type m_deviceType;
     
     // Internal-used buffer
-    IntBuffer m_elementBuffer;
+    IntBuffer* m_pElementBuffer;
 };
 
 #endif /* IntSortingNetworkGPUImpl_h */

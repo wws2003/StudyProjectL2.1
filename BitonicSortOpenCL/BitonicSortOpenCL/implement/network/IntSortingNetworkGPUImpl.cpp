@@ -13,29 +13,39 @@
 
 template class SortingNetworkImpl<int>;
 
-IntSortingNetworkGPUImpl::IntSortingNetworkGPUImpl(const ElementList<int>& elements,
-                                                   SimpleCLExecutorFactoryPtr pSimpleExecutorFactory,
+IntSortingNetworkGPUImpl::IntSortingNetworkGPUImpl(SimpleCLExecutorFactoryPtr pSimpleExecutorFactory,
                                                    const WorkDims& workDims,
                                                    cl_device_type deviceType)
-: SortingNetworkImpl<int>(elements),
-m_elementBuffer(elements, true),
+: m_programName("/Users/wws2003/neo-c++/BitonicSortOpenCL/BitonicSortOpenCL/bitonic_swap2.cl"),
+m_kernelName("bitonic_swap_int1"),
+m_pElementBuffer(NullPtr),
 m_pSimpleExecutorFactory(pSimpleExecutorFactory),
 m_executingDims(workDims),
-m_deviceType(deviceType) {
+m_deviceType(deviceType){
+}
+
+IntSortingNetworkGPUImpl::~IntSortingNetworkGPUImpl() {
+    if (m_pElementBuffer != NullPtr) {
+        freePtr(m_pElementBuffer);
+    }
+}
+
+void IntSortingNetworkGPUImpl::set(const ElementList<int>& elements) {
+    SortingNetworkImpl<int>::set(elements);
+    if (m_pElementBuffer != NullPtr) {
+        freePtr(m_pElementBuffer);
+    }
+    m_pElementBuffer = new IntBuffer(elements, true);
 }
 
 void IntSortingNetworkGPUImpl::swap(int swapDistance,
                                     int sortOrderKeptSwapCnt,
                                     SortOrder firstSortOrder) {
-    // Program and kernel setting
-    std::string srcProgramPath = "/Users/wws2003/neo-c++/BitonicSortOpenCL/BitonicSortOpenCL/bitonic_swap2.cl";
-    std::string kernelName = "bitonic_swap_int1";
-
     // Parameter setting
     IntBuffer kernelSwapDistance(swapDistance);
     IntBuffer kernelOrderKeptSwapCnt(sortOrderKeptSwapCnt);
     IntBuffer isFirstOrderAscending((firstSortOrder == SortOrder::ASC) ? 1 : 0);
-    HostBufferSourcePtr pKernelInOutBuffer = &m_elementBuffer;
+    HostBufferSourcePtr pKernelInOutBuffer = m_pElementBuffer;
     
     // Create CL engine
     ConstHostBufferSources inputs({&kernelSwapDistance,
@@ -57,7 +67,7 @@ void IntSortingNetworkGPUImpl::swap(int swapDistance,
 
     
     TimeSpec timeSpec;
-    pCLEngine->executeCLKernelForResult(srcProgramPath, kernelName, m_executingDims, m_deviceType, &timeSpec);
+    pCLEngine->executeCLKernelForResult(m_programName, m_kernelName, m_executingDims, m_deviceType, &timeSpec);
     
     delete pCLEngine;
 }
@@ -66,7 +76,7 @@ void IntSortingNetworkGPUImpl::collect(ElementList<int>& elements) const {
     // Copy from internal element buffer
     elements.clear();
     HostBuffer hostBuffer;
-    m_elementBuffer.toHostOutputBuffer(hostBuffer);
+    m_pElementBuffer->toHostOutputBuffer(hostBuffer);
     // Copy to output parameters
     int* dataArray = (int*)hostBuffer.m_data;
     elements.insert(elements.begin(), dataArray, dataArray + hostBuffer.m_arraySize);

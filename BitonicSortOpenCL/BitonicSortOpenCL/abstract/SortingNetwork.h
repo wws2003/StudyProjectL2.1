@@ -16,11 +16,16 @@ class SortingNetwork {
 public:
     /**
      * Constructor for sorting network
-     * @param elements
      */
-    SortingNetwork(const ElementList<T>& elements){};
+    SortingNetwork(){};
     
     virtual ~SortingNetwork(){};
+    
+    /**
+     * Set the elements to the internal sorting network
+     * @param elements
+     */
+    virtual void set(const ElementList<T>& elements) = 0;
     
     /**
      * Get size of sorting network

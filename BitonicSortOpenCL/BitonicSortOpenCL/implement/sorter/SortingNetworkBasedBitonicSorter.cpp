@@ -1,25 +1,25 @@
 //
-//  BitonicSorter.cpp
+//  SortingNetworkBasedBitonicSorter.cpp
 //  BitonicSortOpenCL
 //
-//  Created by wws2003 on 2/11/18.
+//  Created by wws2003 on 3/17/18.
 //  Copyright © 2018 tbg. All rights reserved.
 //
 
-#ifdef _DEBUG_MODE
-#include <iostream>
-#endif
-
-#include <stdexcept>
-#include <algorithm>
-#include <cmath>
-#include "BitonicSorter.h"
+#include "SortingNetworkBasedBitonicSorter.h"
 
 template<typename T>
-void BitonicSorter<T>::sort(SortingNetworkPtr<T> pSortingNetwork,
-                            SortOrder sortOrder) const {
+SortingNetworkBasedBitonicSorter<T>::SortingNetworkBasedBitonicSorter(SortingNetworkPtr<T> pSortingNetwork) : ISorter<T>(), m_pSortingNetwork(pSortingNetwork){
+}
+
+template<typename T>
+void SortingNetworkBasedBitonicSorter<T>::sort(const ElementList<T>& inElements,
+          ElementList<T>& outElements,
+          SortOrder sortOrder) const {
+    // Set elements into sorting network
+    m_pSortingNetwork->set(inElements);
     
-    size_t elementCnt = pSortingNetwork->size();
+    size_t elementCnt = m_pSortingNetwork->size();
     
     // Validate parameter first
     this->validateElementsCount(elementCnt);
@@ -33,17 +33,20 @@ void BitonicSorter<T>::sort(SortingNetworkPtr<T> pSortingNetwork,
         // BM8 = Swap and then BM4 and then BM2
         // ...
         while(currentStateElementCnt >= 2) {
-            pSortingNetwork->swap(currentStateElementCnt / 2,
+            m_pSortingNetwork->swap(currentStateElementCnt / 2,
                                   stageElementCnt / 2,
                                   sortOrder);
             currentStateElementCnt /= 2;
         }
         stageElementCnt *= 2;
     }
+
+    // Collect results
+    m_pSortingNetwork->collect(outElements);
 }
 
 template<typename T>
-void BitonicSorter<T>::validateElementsCount(size_t elementCnt) const {
+void SortingNetworkBasedBitonicSorter<T>::validateElementsCount(size_t elementCnt) const {
     while(elementCnt > 1) {
         if (elementCnt % 2 != 0) {
             throw std::invalid_argument("Currently only accept list having number of elements is power of 2");

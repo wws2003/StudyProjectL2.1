@@ -9,11 +9,7 @@
 #include "SortingNetworkImpl.h"
 
 template<typename U>
-SortingNetworkImpl<U>::SortingNetworkImpl(const ElementList<U>& elements) : SortingNetwork<U>(elements) {
-    
-    this->validateElementsCount(elements.size());
-    
-    m_elements = elements;
+SortingNetworkImpl<U>::SortingNetworkImpl() : SortingNetwork<U>() {
     
     m_sortOrderDetectFunc = [](int sortOrderKeptSwapCnt,
                                int currentStartIndex,
@@ -38,6 +34,12 @@ SortingNetworkImpl<U>::SortingNetworkImpl(const ElementList<U>& elements) : Sort
         elements[index1] = std::max(e1, e2);
         elements[index2] = std::min(e1, e2);
     };
+}
+
+template<typename U>
+void SortingNetworkImpl<U>::set(const ElementList<U>& elements) {
+    m_elements.clear();
+    m_elements.insert(m_elements.end(), elements.begin(), elements.end());
 }
 
 template<typename U>
