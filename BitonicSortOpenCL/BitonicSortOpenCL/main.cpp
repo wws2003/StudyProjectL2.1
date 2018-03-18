@@ -91,14 +91,17 @@ int main() {
     
     // CPU test
     initTestData(entries);
+    std::cout << "Bitonic sorting on CPU using sorting network:\n";
     testBitonicSortCPU(entries);
     
     // GPU test (using sorting network)
     initTestData(entries);
+    std::cout << "Bitonic sorting on GPU using sorting network:\n";
     testSortingNetworkBasedBitonicSortGPU(entries);
     
     // GPU test (do not use sorting network)
     initTestData(entries);
+    std::cout << "Bitonic sorting on GPU without sorting network:\n";
     testBitonicSortGPU(entries);
 
     std::cout << "Finish testing bitonic sort\n";
@@ -120,13 +123,8 @@ void testBitonicSortCPU(const ElementList<int>& entries) {
     // Create CPU sorting network
     SortingNetworkPtr<int> pSortingNetwork = SortingNetworkPtr<int>(new IntSortingNetworkCPUImpl());
     
-    // Test the sorting network in the sort function
-    TimeSpec timeSpec;
-    {
-        ScopeTimer scopeTimer(&timeSpec);
-        testBitonicSortingNetwork(entries, pSortingNetwork);
-    }
-    printTimeSpec("CPU Bitonic sort time", timeSpec);
+    // Test
+    testBitonicSortingNetwork(entries, pSortingNetwork);
     
     // Release
     freePtr(pSortingNetwork);
@@ -141,14 +139,9 @@ void testSortingNetworkBasedBitonicSortGPU(const ElementList<int>& entries) {
     cl_device_type deviceType = CL_DEVICE_TYPE_GPU;
     SortingNetworkPtr<int> pSortingNetwork = SortingNetworkPtr<int>(new IntSortingNetworkGPUImpl(pSimpleExecutorFactory, workDims, deviceType));
 
-    // Test the sorting network in the sort function
-    TimeSpec timeSpec;
-    {
-        ScopeTimer scopeTimer(&timeSpec);
-        testBitonicSortingNetwork(entries, pSortingNetwork);
-    }
-    printTimeSpec("GPU Bitonic sort time based-on sorting network", timeSpec);
-
+    // Test
+    testBitonicSortingNetwork(entries, pSortingNetwork);
+    
     // Release
     freePtr(pSortingNetwork);
     freePtr(pSimpleExecutorFactory);
@@ -165,12 +158,7 @@ void testBitonicSortGPU(const ElementList<int>& entries) {
     
     IntBitonicGPUSorter sorter(pSimpleExecutorFactory, workDims, deviceType);
     // Test the sorter
-    TimeSpec timeSpec;
-    {
-        ScopeTimer scopeTimer(&timeSpec);
-        testSorter(&sorter, entries);
-    }
-    printTimeSpec("GPU Bitonic sort time", timeSpec);
+    testSorter(&sorter, entries);
     
     // Release
     freePtr(pSimpleExecutorFactory);
@@ -186,7 +174,12 @@ void testBitonicSortingNetwork(const ElementList<int>& entries,
 void testSorter(ISorter<int>* pSorter, const ElementList<int>& entries) {
     ElementList<int> sortedEntries;
     
-    pSorter->sort(entries, sortedEntries, SortOrder::ASC);
+    TimeSpec timeSpec;
+    {
+        ScopeTimer scopeTimer(&timeSpec);
+        pSorter->sort(entries, sortedEntries, SortOrder::ASC);
+    }
+    printTimeSpec("Sorting time", timeSpec);
     
     size_t elementCnt = sortedEntries.size();
     

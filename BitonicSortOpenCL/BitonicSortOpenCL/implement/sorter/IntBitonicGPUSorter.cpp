@@ -15,7 +15,7 @@ IntBitonicGPUSorter::IntBitonicGPUSorter(SimpleCLExecutorFactoryPtr pSimpleExecu
                                          const WorkDims& workDims,
                                          cl_device_type deviceType) :
 m_programName("/Users/wws2003/neo-c++/BitonicSortOpenCL/BitonicSortOpenCL/bitonic_sort.cl"),
-m_kernelName("bitonic_sort_global1"),
+m_kernelName("bitonic_sort_global_naive"),
 m_pSimpleExecutorFactory(pSimpleExecutorFactory),
 m_executingDims(workDims),
 m_deviceType(deviceType) {
@@ -44,13 +44,12 @@ void IntBitonicGPUSorter::sort(const ElementList<int>& inElements,
         // ...
         
         // Parameter setting
-        IntBuffer kernelSwapDistance(currentStateElementCnt / 2);
-        IntBuffer isFirstOrderAscending((sortOrder == SortOrder::ASC) ? 1 : 0);
+        IntBuffer inc(currentStateElementCnt / 2);
+        IntBuffer dir((sortOrder == SortOrder::ASC) ? 1 : 0);
         HostBufferSourcePtr pKernelInOutBuffer = &elementBuffer;
         
         // Create CL engine
-        ConstHostBufferSources inputs({&kernelSwapDistance,
-            &isFirstOrderAscending});
+        ConstHostBufferSources inputs({&inc, &dir});
         ParamTypes paramTypes({PT_CONSTANT, PT_CONSTANT, PT_GLOBAL_INOUT});
         
         HostBufferSources outputs({pKernelInOutBuffer});

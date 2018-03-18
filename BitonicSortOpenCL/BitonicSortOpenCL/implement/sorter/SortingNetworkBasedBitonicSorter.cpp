@@ -36,9 +36,9 @@ void SortingNetworkBasedBitonicSorter<T>::sort(const ElementList<T>& inElements,
             m_pSortingNetwork->swap(currentStateElementCnt / 2,
                                   stageElementCnt / 2,
                                   sortOrder);
-            currentStateElementCnt /= 2;
+            currentStateElementCnt >>= 1;
         }
-        stageElementCnt *= 2;
+        stageElementCnt <<= 1;
     }
 
     // Collect results
