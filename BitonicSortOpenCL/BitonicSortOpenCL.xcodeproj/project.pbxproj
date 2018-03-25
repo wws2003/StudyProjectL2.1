@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4003F7D120304484002BED82 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4003F7D020304484002BED82 /* main.cpp */; };
+		40221C3B2067B00300C3909D /* IntSimpleBitonicBlockBasedSorter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40221C392067B00300C3909D /* IntSimpleBitonicBlockBasedSorter.cpp */; };
 		404C60F5205D23CB00028161 /* bitonic_sort.cl in Sources */ = {isa = PBXBuildFile; fileRef = 404C60F4205D23CB00028161 /* bitonic_sort.cl */; };
 		405892652039343A0016CB28 /* bitonic_swap2.cl in Sources */ = {isa = PBXBuildFile; fileRef = 405892642039343A0016CB28 /* bitonic_swap2.cl */; };
 		4058926E2039F50E0016CB28 /* libSimpleOpenCLLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 405892622038B3490016CB28 /* libSimpleOpenCLLib.a */; };
@@ -17,6 +18,9 @@
 		4078717A205D76E5001C9E06 /* IntBitonicGPUSorter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40787175205D76E5001C9E06 /* IntBitonicGPUSorter.cpp */; };
 		4078717F205D7771001C9E06 /* SortingNetworkBasedBitonicSorter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4078717D205D7771001C9E06 /* SortingNetworkBasedBitonicSorter.cpp */; };
 		40787182205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40787180205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.cpp */; };
+		40ACB747206657A40090369A /* bitonic_sort2.cl in Sources */ = {isa = PBXBuildFile; fileRef = 40ACB746206657A40090369A /* bitonic_sort2.cl */; };
+		40ACB74D2066C72B0090369A /* SimpleBitonicBlockBasedSorter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40ACB74B2066C72B0090369A /* SimpleBitonicBlockBasedSorter.cpp */; };
+		40ACB7502066D1D50090369A /* IntHybridBitonicBlockSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40ACB74E2066D1D50090369A /* IntHybridBitonicBlockSolver.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,24 +38,33 @@
 /* Begin PBXFileReference section */
 		4003F7CD20304484002BED82 /* BitonicSortOpenCL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BitonicSortOpenCL; sourceTree = BUILT_PRODUCTS_DIR; };
 		4003F7D020304484002BED82 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		40221C392067B00300C3909D /* IntSimpleBitonicBlockBasedSorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IntSimpleBitonicBlockBasedSorter.cpp; path = ../IntSimpleBitonicBlockBasedSorter.cpp; sourceTree = "<group>"; };
+		40221C3A2067B00300C3909D /* IntSimpleBitonicBlockBasedSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IntSimpleBitonicBlockBasedSorter.h; path = ../IntSimpleBitonicBlockBasedSorter.h; sourceTree = "<group>"; };
 		404C60F4205D23CB00028161 /* bitonic_sort.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = bitonic_sort.cl; sourceTree = "<group>"; };
 		404C60FF205D714600028161 /* ISorter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISorter.h; sourceTree = "<group>"; };
 		404C6102205D74DC00028161 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		404C6103205D74E900028161 /* SortingNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortingNetwork.h; sourceTree = "<group>"; };
 		405892622038B3490016CB28 /* libSimpleOpenCLLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSimpleOpenCLLib.a; path = ../SimpleOpenCLLib/output/Build/Products/Debug/libSimpleOpenCLLib.a; sourceTree = "<group>"; };
 		405892642039343A0016CB28 /* bitonic_swap2.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = bitonic_swap2.cl; sourceTree = "<group>"; };
-		4078716B205D76DE001C9E06 /* IntSortingNetworkGPUImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntSortingNetworkGPUImpl.cpp; sourceTree = "<group>"; };
-		4078716C205D76DE001C9E06 /* IntSortingNetworkGPUImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntSortingNetworkGPUImpl.h; sourceTree = "<group>"; };
-		4078716D205D76DE001C9E06 /* IntSortingNetworkCPUImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntSortingNetworkCPUImpl.h; sourceTree = "<group>"; };
-		4078716E205D76DE001C9E06 /* SortingNetworkImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortingNetworkImpl.h; sourceTree = "<group>"; };
-		4078716F205D76DE001C9E06 /* SortingNetworkImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SortingNetworkImpl.cpp; sourceTree = "<group>"; };
-		40787170205D76DE001C9E06 /* IntSortingNetworkCPUImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntSortingNetworkCPUImpl.cpp; sourceTree = "<group>"; };
-		40787175205D76E5001C9E06 /* IntBitonicGPUSorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntBitonicGPUSorter.cpp; sourceTree = "<group>"; };
-		40787176205D76E5001C9E06 /* IntBitonicGPUSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntBitonicGPUSorter.h; sourceTree = "<group>"; };
-		4078717D205D7771001C9E06 /* SortingNetworkBasedBitonicSorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SortingNetworkBasedBitonicSorter.cpp; sourceTree = "<group>"; };
-		4078717E205D7771001C9E06 /* SortingNetworkBasedBitonicSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortingNetworkBasedBitonicSorter.h; sourceTree = "<group>"; };
-		40787180205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SortingNetworkBasedIntBitonicSorter.cpp; sourceTree = "<group>"; };
-		40787181205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortingNetworkBasedIntBitonicSorter.h; sourceTree = "<group>"; };
+		4078716B205D76DE001C9E06 /* IntSortingNetworkGPUImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IntSortingNetworkGPUImpl.cpp; path = ../IntSortingNetworkGPUImpl.cpp; sourceTree = "<group>"; };
+		4078716C205D76DE001C9E06 /* IntSortingNetworkGPUImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IntSortingNetworkGPUImpl.h; path = ../IntSortingNetworkGPUImpl.h; sourceTree = "<group>"; };
+		4078716D205D76DE001C9E06 /* IntSortingNetworkCPUImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IntSortingNetworkCPUImpl.h; path = ../IntSortingNetworkCPUImpl.h; sourceTree = "<group>"; };
+		4078716E205D76DE001C9E06 /* SortingNetworkImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SortingNetworkImpl.h; path = ../SortingNetworkImpl.h; sourceTree = "<group>"; };
+		4078716F205D76DE001C9E06 /* SortingNetworkImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SortingNetworkImpl.cpp; path = ../SortingNetworkImpl.cpp; sourceTree = "<group>"; };
+		40787170205D76DE001C9E06 /* IntSortingNetworkCPUImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IntSortingNetworkCPUImpl.cpp; path = ../IntSortingNetworkCPUImpl.cpp; sourceTree = "<group>"; };
+		40787175205D76E5001C9E06 /* IntBitonicGPUSorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IntBitonicGPUSorter.cpp; path = ../IntBitonicGPUSorter.cpp; sourceTree = "<group>"; };
+		40787176205D76E5001C9E06 /* IntBitonicGPUSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IntBitonicGPUSorter.h; path = ../IntBitonicGPUSorter.h; sourceTree = "<group>"; };
+		4078717D205D7771001C9E06 /* SortingNetworkBasedBitonicSorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SortingNetworkBasedBitonicSorter.cpp; path = ../SortingNetworkBasedBitonicSorter.cpp; sourceTree = "<group>"; };
+		4078717E205D7771001C9E06 /* SortingNetworkBasedBitonicSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SortingNetworkBasedBitonicSorter.h; path = ../SortingNetworkBasedBitonicSorter.h; sourceTree = "<group>"; };
+		40787180205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SortingNetworkBasedIntBitonicSorter.cpp; path = ../SortingNetworkBasedIntBitonicSorter.cpp; sourceTree = "<group>"; };
+		40787181205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SortingNetworkBasedIntBitonicSorter.h; path = ../SortingNetworkBasedIntBitonicSorter.h; sourceTree = "<group>"; };
+		40ACB746206657A40090369A /* bitonic_sort2.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = bitonic_sort2.cl; sourceTree = "<group>"; };
+		40ACB7492066BC390090369A /* BitonicBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitonicBlock.h; sourceTree = "<group>"; };
+		40ACB74A2066C3A80090369A /* IBitonicBlockSolver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBitonicBlockSolver.h; sourceTree = "<group>"; };
+		40ACB74B2066C72B0090369A /* SimpleBitonicBlockBasedSorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SimpleBitonicBlockBasedSorter.cpp; path = ../SimpleBitonicBlockBasedSorter.cpp; sourceTree = "<group>"; };
+		40ACB74C2066C72B0090369A /* SimpleBitonicBlockBasedSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleBitonicBlockBasedSorter.h; path = ../SimpleBitonicBlockBasedSorter.h; sourceTree = "<group>"; };
+		40ACB74E2066D1D50090369A /* IntHybridBitonicBlockSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IntHybridBitonicBlockSolver.cpp; path = ../IntHybridBitonicBlockSolver.cpp; sourceTree = "<group>"; };
+		40ACB74F2066D1D50090369A /* IntHybridBitonicBlockSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IntHybridBitonicBlockSolver.h; path = ../IntHybridBitonicBlockSolver.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +108,7 @@
 		4003F7D9203045D0002BED82 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				40ACB7482066BB5F0090369A /* dto */,
 				404C6101205D741400028161 /* common */,
 				404C60FE205D711C00028161 /* implement */,
 				404C60FD205D711000028161 /* abstract */,
@@ -105,6 +119,7 @@
 		4003F7DA203045D7002BED82 /* kernel */ = {
 			isa = PBXGroup;
 			children = (
+				40ACB746206657A40090369A /* bitonic_sort2.cl */,
 				405892642039343A0016CB28 /* bitonic_swap2.cl */,
 				404C60F4205D23CB00028161 /* bitonic_sort.cl */,
 				4003F7D9203045D0002BED82 /* classes */,
@@ -112,11 +127,58 @@
 			name = kernel;
 			sourceTree = "<group>";
 		};
+		40221C3C2067B06700C3909D /* generic */ = {
+			isa = PBXGroup;
+			children = (
+				4078716F205D76DE001C9E06 /* SortingNetworkImpl.cpp */,
+				4078716E205D76DE001C9E06 /* SortingNetworkImpl.h */,
+			);
+			path = generic;
+			sourceTree = "<group>";
+		};
+		40221C3D2067B07400C3909D /* int */ = {
+			isa = PBXGroup;
+			children = (
+				40787170205D76DE001C9E06 /* IntSortingNetworkCPUImpl.cpp */,
+				4078716B205D76DE001C9E06 /* IntSortingNetworkGPUImpl.cpp */,
+				4078716D205D76DE001C9E06 /* IntSortingNetworkCPUImpl.h */,
+				4078716C205D76DE001C9E06 /* IntSortingNetworkGPUImpl.h */,
+			);
+			path = int;
+			sourceTree = "<group>";
+		};
+		40221C3E2067B09F00C3909D /* generic */ = {
+			isa = PBXGroup;
+			children = (
+				40ACB74B2066C72B0090369A /* SimpleBitonicBlockBasedSorter.cpp */,
+				40ACB74C2066C72B0090369A /* SimpleBitonicBlockBasedSorter.h */,
+				4078717D205D7771001C9E06 /* SortingNetworkBasedBitonicSorter.cpp */,
+				4078717E205D7771001C9E06 /* SortingNetworkBasedBitonicSorter.h */,
+				40787180205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.cpp */,
+				40787181205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.h */,
+			);
+			path = generic;
+			sourceTree = "<group>";
+		};
+		40221C3F2067B0A900C3909D /* int */ = {
+			isa = PBXGroup;
+			children = (
+				40787175205D76E5001C9E06 /* IntBitonicGPUSorter.cpp */,
+				40787176205D76E5001C9E06 /* IntBitonicGPUSorter.h */,
+				40ACB74E2066D1D50090369A /* IntHybridBitonicBlockSolver.cpp */,
+				40ACB74F2066D1D50090369A /* IntHybridBitonicBlockSolver.h */,
+				40221C392067B00300C3909D /* IntSimpleBitonicBlockBasedSorter.cpp */,
+				40221C3A2067B00300C3909D /* IntSimpleBitonicBlockBasedSorter.h */,
+			);
+			path = int;
+			sourceTree = "<group>";
+		};
 		404C60FD205D711000028161 /* abstract */ = {
 			isa = PBXGroup;
 			children = (
 				404C6103205D74E900028161 /* SortingNetwork.h */,
 				404C60FF205D714600028161 /* ISorter.h */,
+				40ACB74A2066C3A80090369A /* IBitonicBlockSolver.h */,
 			);
 			path = abstract;
 			sourceTree = "<group>";
@@ -141,12 +203,8 @@
 		40787169205D7696001C9E06 /* sorter */ = {
 			isa = PBXGroup;
 			children = (
-				40787175205D76E5001C9E06 /* IntBitonicGPUSorter.cpp */,
-				4078717D205D7771001C9E06 /* SortingNetworkBasedBitonicSorter.cpp */,
-				40787180205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.cpp */,
-				40787176205D76E5001C9E06 /* IntBitonicGPUSorter.h */,
-				4078717E205D7771001C9E06 /* SortingNetworkBasedBitonicSorter.h */,
-				40787181205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.h */,
+				40221C3F2067B0A900C3909D /* int */,
+				40221C3E2067B09F00C3909D /* generic */,
 			);
 			path = sorter;
 			sourceTree = "<group>";
@@ -154,14 +212,18 @@
 		4078716A205D769F001C9E06 /* network */ = {
 			isa = PBXGroup;
 			children = (
-				40787170205D76DE001C9E06 /* IntSortingNetworkCPUImpl.cpp */,
-				4078716B205D76DE001C9E06 /* IntSortingNetworkGPUImpl.cpp */,
-				4078716F205D76DE001C9E06 /* SortingNetworkImpl.cpp */,
-				4078716D205D76DE001C9E06 /* IntSortingNetworkCPUImpl.h */,
-				4078716C205D76DE001C9E06 /* IntSortingNetworkGPUImpl.h */,
-				4078716E205D76DE001C9E06 /* SortingNetworkImpl.h */,
+				40221C3D2067B07400C3909D /* int */,
+				40221C3C2067B06700C3909D /* generic */,
 			);
 			path = network;
+			sourceTree = "<group>";
+		};
+		40ACB7482066BB5F0090369A /* dto */ = {
+			isa = PBXGroup;
+			children = (
+				40ACB7492066BC390090369A /* BitonicBlock.h */,
+			);
+			path = dto;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,8 +284,12 @@
 			files = (
 				40787172205D76DE001C9E06 /* SortingNetworkImpl.cpp in Sources */,
 				4078717F205D7771001C9E06 /* SortingNetworkBasedBitonicSorter.cpp in Sources */,
+				40221C3B2067B00300C3909D /* IntSimpleBitonicBlockBasedSorter.cpp in Sources */,
 				40787182205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.cpp in Sources */,
+				40ACB7502066D1D50090369A /* IntHybridBitonicBlockSolver.cpp in Sources */,
 				405892652039343A0016CB28 /* bitonic_swap2.cl in Sources */,
+				40ACB74D2066C72B0090369A /* SimpleBitonicBlockBasedSorter.cpp in Sources */,
+				40ACB747206657A40090369A /* bitonic_sort2.cl in Sources */,
 				40787173205D76DE001C9E06 /* IntSortingNetworkCPUImpl.cpp in Sources */,
 				404C60F5205D23CB00028161 /* bitonic_sort.cl in Sources */,
 				4078717A205D76E5001C9E06 /* IntBitonicGPUSorter.cpp in Sources */,
