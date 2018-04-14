@@ -58,6 +58,7 @@
 		4078717E205D7771001C9E06 /* SortingNetworkBasedBitonicSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SortingNetworkBasedBitonicSorter.h; path = ../SortingNetworkBasedBitonicSorter.h; sourceTree = "<group>"; };
 		40787180205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SortingNetworkBasedIntBitonicSorter.cpp; path = ../SortingNetworkBasedIntBitonicSorter.cpp; sourceTree = "<group>"; };
 		40787181205D7F45001C9E06 /* SortingNetworkBasedIntBitonicSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SortingNetworkBasedIntBitonicSorter.h; path = ../SortingNetworkBasedIntBitonicSorter.h; sourceTree = "<group>"; };
+		4081FCD720821290001DC1BE /* BitonicVerticalArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitonicVerticalArray.h; sourceTree = "<group>"; };
 		40ACB746206657A40090369A /* bitonic_sort2.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = bitonic_sort2.cl; sourceTree = "<group>"; };
 		40ACB7492066BC390090369A /* BitonicBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitonicBlock.h; sourceTree = "<group>"; };
 		40ACB74A2066C3A80090369A /* IBitonicBlockSolver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBitonicBlockSolver.h; sourceTree = "<group>"; };
@@ -140,8 +141,8 @@
 			isa = PBXGroup;
 			children = (
 				40787170205D76DE001C9E06 /* IntSortingNetworkCPUImpl.cpp */,
-				4078716B205D76DE001C9E06 /* IntSortingNetworkGPUImpl.cpp */,
 				4078716D205D76DE001C9E06 /* IntSortingNetworkCPUImpl.h */,
+				4078716B205D76DE001C9E06 /* IntSortingNetworkGPUImpl.cpp */,
 				4078716C205D76DE001C9E06 /* IntSortingNetworkGPUImpl.h */,
 			);
 			path = int;
@@ -222,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				40ACB7492066BC390090369A /* BitonicBlock.h */,
+				4081FCD720821290001DC1BE /* BitonicVerticalArray.h */,
 			);
 			path = dto;
 			sourceTree = "<group>";

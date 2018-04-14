@@ -30,14 +30,14 @@ void SimpleBitonicBlockBasedSorter<T>::sort(const ElementList<T>& inElements,
     std::vector<BitonicBlock<T>> bitonicBlocks;
     bitonicBlocks.reserve(elementCnt - 1);
     
-    int increment = 2;
+    int bitonicBlockSize = 2;
     int sortingDepth = 1;
     SortOrder reverseSortOrder = (sortOrder == SortOrder::ASC) ? SortOrder::DESC : SortOrder::DESC;
     
-    while(increment <= elementCnt) {
-        // (n/2) Block 2, (n/4) Block 4, ...
+    while(bitonicBlockSize <= elementCnt) {
+        // (n/2) Block 2, (n/4) Block 4, .... ORDER MATTER !
         size_t startIndex = 0;
-        size_t endIndex = increment - 1;
+        size_t endIndex = bitonicBlockSize - 1;
         // Traverse low to high index
         int step = 0;
         while (endIndex < elementCnt) {
@@ -49,10 +49,10 @@ void SimpleBitonicBlockBasedSorter<T>::sort(const ElementList<T>& inElements,
                                        sortingDepth,
                                        &outElements);
             // To next block
-            startIndex += increment;
-            endIndex += increment;
+            startIndex += bitonicBlockSize;
+            endIndex += bitonicBlockSize;
         }
-        increment <<= 1;
+        bitonicBlockSize <<= 1;
         sortingDepth++;
     }
     

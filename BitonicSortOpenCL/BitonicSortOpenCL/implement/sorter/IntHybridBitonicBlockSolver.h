@@ -57,12 +57,20 @@ private:
     void solveByGPU(const BitonicBlock<int>& bitonicBlock) const;
     
     /**
+     * Collect elements into the buffer working with GPU from inpur elements
+     * @param elementBuffer The buffer working with GPU
+     * @param offset        Offset on the output elements
+     * @param elements      Output elements
+     */
+    void collectToInoutBuffer(IntBuffer& elementBuffer, size_t offset, const ElementList<int>& elements) const;
+    
+    /**
     * Collect elements in the buffer working with GPU into output elements
     * @param elementBuffer The buffer working with GPU
     * @param offset        Offset on the output elements
     * @param elements      Output elements
     */
-    void collect(const IntBuffer& elementBuffer, size_t offset, ElementList<int>& elements) const;
+    void collectFromInoutBuffer(const IntBuffer& elementBuffer, size_t offset, ElementList<int>& elements) const;
     
     // Map of solve func
     SolveFuncMap m_solveFuncMap;
@@ -73,6 +81,9 @@ private:
     SimpleCLExecutorFactoryPtr m_pSimpleExecutorFactory;
     WorkDims m_executingDims;
     size_t m_maxWorkGroupSize;
+    
+    // Buffers
+    IntBuffer m_localBuffer;
 };
 
 #endif /* IntHybridBitonicBlockSolver_h */

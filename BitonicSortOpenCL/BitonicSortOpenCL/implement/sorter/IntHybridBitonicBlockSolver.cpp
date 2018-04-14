@@ -8,6 +8,8 @@
 
 #include "IntHybridBitonicBlockSolver.h"
 #include "SimplePrototypedCLEngine.h"
+#include "Util.h"
+#include <iostream>
 
 #define HOST_SWAP(a,b) {int aux = a; a = b; b = aux;}
 
@@ -17,8 +19,9 @@ IntHybridBitonicBlockSolver::IntHybridBitonicBlockSolver(
 m_programName("/Users/wws2003/neo-c++/BitonicSortOpenCL/BitonicSortOpenCL/bitonic_sort2.cl"),
 m_kernelName("bitonic_sort_local1"),
 m_pSimpleExecutorFactory(pSimpleExecutorFactory),
-m_executingDims({maxWorkGroupSize, maxWorkGroupSize}, {maxWorkGroupSize, maxWorkGroupSize}),
-m_maxWorkGroupSize(maxWorkGroupSize) {
+m_executingDims({maxWorkGroupSize}, {maxWorkGroupSize}),
+m_maxWorkGroupSize(maxWorkGroupSize),
+m_localBuffer(maxWorkGroupSize, true) {
     
     m_solveFuncMap[MACHINE::DEVICE] = [this](const BitonicBlock<int>& bitonicBlock) {
         solveByGPU(bitonicBlock);
@@ -39,8 +42,7 @@ void IntHybridBitonicBlockSolver::solve(const BitonicBlock<int>& bitonicBlock) c
 }
 
 MACHINE IntHybridBitonicBlockSolver::detectProperDeviceTypeToSolve(size_t startIndex, size_t endIndex, int sortingDepth) const {
-    // TODO Implement properly
-    
+    // TODO Implement more properly
     return (endIndex - startIndex + 1 == m_maxWorkGroupSize) ? MACHINE::DEVICE : MACHINE::HOST;
 }
 
@@ -48,6 +50,7 @@ void IntHybridBitonicBlockSolver::solveByCPU(const BitonicBlock<int>& bitonicBlo
     if (bitonicBlock.m_sortingDepth < 1) {
         return;
     }
+    
     // Swap
     ElementList<int>& elementList = *(bitonicBlock.m_pElementList);
     size_t elementCnt = bitonicBlock.m_higherIndex - bitonicBlock.m_lowerIndex + 1;
@@ -60,7 +63,11 @@ void IntHybridBitonicBlockSolver::solveByCPU(const BitonicBlock<int>& bitonicBlo
         }
     }
     
-    // Recursively solve sub-blocks
+    // Recursively solve sub-blocks if needed
+    if (bitonicBlock.m_sortingDepth <= 1) {
+        return;
+    }
+    
     size_t subElementCnt = elementCnt >> 1;
     BitonicBlock<int> lowerSubBlock(bitonicBlock.m_sortOrder,
                                     bitonicBlock.m_lowerIndex,
@@ -80,19 +87,28 @@ void IntHybridBitonicBlockSolver::solveByCPU(const BitonicBlock<int>& bitonicBlo
 void IntHybridBitonicBlockSolver::solveByGPU(const BitonicBlock<int>& bitonicBlock) const {
     // Parameter setting
     IntBuffer itemCount((int)(bitonicBlock.m_higherIndex - bitonicBlock.m_lowerIndex + 1));
-    IntBuffer globalOffset((int)bitonicBlock.m_lowerIndex);
+    IntBuffer globalOffset(0);
     IntBuffer sortDirection((bitonicBlock.m_sortOrder == SortOrder::ASC) ? 0 : 1);
     
-    // TODO Specify proper param
-    //HostBufferSourcePtr pKernelInOutBuffer = &elementBuffer;
-    HostBufferSourcePtr pKernelInOutBuffer;
+    // Copy values to m_inoutBuffer (do not copy the whole input but the segment to sort only)
+    IntBuffer inoutBuffer(m_localBuffer.size(), true);
+    collectToInoutBuffer(inoutBuffer, bitonicBlock.m_lowerIndex, *bitonicBlock.m_pElementList);
     
     // Create CL engine
-    ConstHostBufferSources inputs({&itemCount, &sortDirection, &globalOffset});
-    ParamTypes paramTypes({PT_CONSTANT, PT_CONSTANT, PT_CONSTANT});
+    ConstHostBufferSources inputs({&itemCount,
+        &sortDirection,
+        &globalOffset,
+        &m_localBuffer});
     
-    HostBufferSources outputs({pKernelInOutBuffer});
-    OutputParamIndices outputParamsIndices({2});
+    HostBufferSources outputs({&inoutBuffer});
+    
+    ParamTypes paramTypes({PT_CONSTANT,
+        PT_CONSTANT,
+        PT_CONSTANT,
+        PT_LOCAL,
+        PT_GLOBAL_INOUT});
+    
+    OutputParamIndices outputParamsIndices({4});
     
     CLEnginePtr pCLEngine = CLEnginePtr(new SimplePrototypedCLEngine(m_pSimpleExecutorFactory,
                                                                      inputs,
@@ -103,24 +119,40 @@ void IntHybridBitonicBlockSolver::solveByGPU(const BitonicBlock<int>& bitonicBlo
     // Excute kernel for result
     // TODO Properly handle timeSpec
     TimeSpec timeSpec;
-    pCLEngine->executeCLKernelForResult(m_programName, m_kernelName, m_executingDims, CL_DEVICE_TYPE_GPU, &timeSpec);
+    {
+        ScopeTimer scopeTimer(&timeSpec);
+        pCLEngine->executeCLKernelForResult(m_programName, m_kernelName, m_executingDims, CL_DEVICE_TYPE_GPU, NULL);
+    }
+    
+    
+    // DEBUG
+    std::cout << "1,One block of " << m_maxWorkGroupSize << " has solving time (in ms)," << (timeSpec.tv_sec * 1e3 + timeSpec.tv_nsec / 1e6) << "\n";
     
     delete pCLEngine;
 
-    // TODO Collect results
-    
+    // Collect results from inout buffer
+    TimeSpec timeSpec2;
+    {
+        ScopeTimer scopeTimer(&timeSpec2);
+        collectFromInoutBuffer(inoutBuffer, bitonicBlock.m_lowerIndex, *bitonicBlock.m_pElementList);
+    }
+    // DEBUG
+    std::cout << "2,Collect block of " << m_maxWorkGroupSize << " takes time (in ms)," << (timeSpec2.tv_sec * 1e3 + timeSpec2.tv_nsec / 1e6) << "\n";
+}
+
+void IntHybridBitonicBlockSolver::collectToInoutBuffer(IntBuffer& inoutBuffer, size_t offset, const ElementList<int>& elements) const {
+    // Assume the size of element buffer fixed and memory initialized
+    size_t eleCount = inoutBuffer.size();
+    for (size_t index = 0; index < eleCount; index++) {
+        inoutBuffer.set(index, elements[offset + index]);
+    }
 }
 
 
-void IntHybridBitonicBlockSolver::collect(const IntBuffer& elementBuffer, size_t offset, ElementList<int>& elements) const {
+void IntHybridBitonicBlockSolver::collectFromInoutBuffer(const IntBuffer& inoutBuffer, size_t offset, ElementList<int>& elements) const {
     // Copy from internal element buffer
-    elements.clear();
-    HostBuffer hostBuffer;
-    elementBuffer.toHostOutputBuffer(hostBuffer);
-    // Copy to output parameters
-    int* dataArray = (int*)hostBuffer.m_data;
-    
-    for (size_t index = 0; index < hostBuffer.m_arraySize; index++) {
-        elements[offset + index] = dataArray[index];
+    size_t eleCount = inoutBuffer.size();
+    for (size_t index = 0; index < eleCount; index++) {
+        elements[offset + index] = inoutBuffer[index];
     }
 }

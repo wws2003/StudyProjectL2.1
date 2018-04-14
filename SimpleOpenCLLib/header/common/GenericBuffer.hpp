@@ -62,11 +62,11 @@ public:
         return m_size;
     };
     
-    inline const T& operator[](int idx) const {
+    inline const T& operator[](size_t idx) const {
         return m_array[idx];
     };
     
-    inline void set(int idx, const T& value) {
+    inline void set(size_t idx, const T& value) {
         m_array[idx] = value;
     }
     

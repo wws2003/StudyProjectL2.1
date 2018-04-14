@@ -26,11 +26,9 @@ __kernel void bitonic_sort_local1(const int itemCount,
     // Do sort
     // 1. Swap following the given sort direction
     // 2. Sort sub blocks until the size of one, with the direction determined by the given sort direction
-    
-    int swapDistance = itemCount >> 1;
     int halfItemCount = itemCount >> 1;
     
-    for(; swapDistance > 1; swapDistance >>= 1) {
+    for(int swapDistance = itemCount >> 1; swapDistance > 1; swapDistance >>= 1) {
         int lowerIndex = localIndex;
         int higherIndex = lowerIndex + swapDistance;
         bool inRange = higherIndex < itemCount;
@@ -51,9 +49,8 @@ __kernel void bitonic_sort_local1(const int itemCount,
         if (toSwap) {
             DEVICE_SWAP(sortBuffer[lowerIndex], sortBuffer[higherIndex]);
         }
-        
-        // Finally store to global memory
-        outputBuffer[globalOffset + lowerIndex] = sortBuffer[lowerIndex];
-        outputBuffer[globalOffset + higherIndex] = sortBuffer[higherIndex];
     }
+    
+    // Finally store to global memory
+    outputBuffer[globalOffset + localIndex] = sortBuffer[localIndex];
 }
