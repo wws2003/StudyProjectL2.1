@@ -7,6 +7,6 @@
 //
 
 #include "IntSimpleBitonicBlockBasedSorter.h"
-#include "SimpleBitonicBlockBasedSorter.cpp"
+#include "../generic/SimpleBitonicBlockBasedSorter.cpp"
 
 template class SimpleBitonicBlockBasedSorter<int>;

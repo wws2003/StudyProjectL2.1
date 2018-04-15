@@ -7,6 +7,6 @@
 //
 
 #include "IntSortingNetworkCPUImpl.h"
-#include "SortingNetworkImpl.cpp"
+#include "../generic/SortingNetworkImpl.cpp"
 
 template class SortingNetworkImpl<int>;

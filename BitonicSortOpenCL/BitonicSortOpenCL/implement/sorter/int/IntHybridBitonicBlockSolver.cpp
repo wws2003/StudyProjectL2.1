@@ -11,8 +11,6 @@
 #include "Util.h"
 #include <iostream>
 
-#define HOST_SWAP(a,b) {int aux = a; a = b; b = aux;}
-
 IntHybridBitonicBlockSolver::IntHybridBitonicBlockSolver(
                                                          SimpleCLExecutorFactoryPtr pSimpleExecutorFactory,
                                                          size_t maxWorkGroupSize) : IBitonicBlockSolver<int>(),

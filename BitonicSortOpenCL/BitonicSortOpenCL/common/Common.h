@@ -27,10 +27,14 @@ using ElementListPtr = ElementList<T>*;
 template<typename T>
 using ConstElementList = std::vector<const T>;
 
+#define HOST_SWAP(a,b) {int aux = a; a = b; b = aux;}
+
 enum SortOrder {
     ASC = 0,
     DESC = 1
 };
+
+#define HOST_COMPARE_AND_SWAP(a,b,order) {if ((a > b && order == SortOrder::ASC) || (a < b && order == SortOrder::DESC)) {int aux = a; a = b; b = aux;} }
 
 enum MACHINE {
     HOST = 0,
@@ -48,5 +52,11 @@ class IBitonicBlockSolver;
 
 template<typename T>
 using BitonicBlockSolverPtr = IBitonicBlockSolver<T>*;
+
+template<typename T>
+class IBitonicVerticalArraySolver;
+
+template<typename T>
+using BitonicVerticalArraySolverPtr = IBitonicVerticalArraySolver<T>*;
 
 #endif /* Common_h */

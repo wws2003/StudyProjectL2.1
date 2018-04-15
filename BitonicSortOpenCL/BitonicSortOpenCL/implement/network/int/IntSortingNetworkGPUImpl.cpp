@@ -7,7 +7,7 @@
 //
 
 #include "IntSortingNetworkGPUImpl.h"
-#include "SortingNetworkImpl.cpp"
+#include "../generic/SortingNetworkImpl.cpp"
 #include "IKernelArgumentContainer.h"
 #include "SimplePrototypedCLEngine.h"
 

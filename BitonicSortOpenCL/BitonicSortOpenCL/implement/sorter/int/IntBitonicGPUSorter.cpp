@@ -7,7 +7,7 @@
 //
 
 #include "IntBitonicGPUSorter.h"
-#include "../network/SortingNetworkImpl.cpp"
+#include "../../network/generic/SortingNetworkImpl.cpp"
 #include "IKernelArgumentContainer.h"
 #include "SimplePrototypedCLEngine.h"
 
