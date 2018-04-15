@@ -13,7 +13,7 @@
 
 class IntHybridBitonicVerticalArraySolver : public IBitonicVerticalArraySolver<int> {
 public:
-    IntHybridBitonicVerticalArraySolver(BitonicVerticalArraySolverPtr<int> pGPUSolver);
+    IntHybridBitonicVerticalArraySolver(size_t maxWorkGroupSize, BitonicVerticalArraySolverPtr<int> pGPUSolver);
     
     virtual ~IntHybridBitonicVerticalArraySolver(){};
     
@@ -33,6 +33,10 @@ private:
     */
     void compareAndSwapFirstColumn(const BitonicVerticalArray<int>& bitonicVerticalArray) const;
     
+    // Max work group size (to detect swap block size can delegate to GPU solver)
+    size_t m_maxWorkGroupSize;
+    
+    // Solver by GPU
     BitonicVerticalArraySolverPtr<int> m_pGPUSolver;
 };
 

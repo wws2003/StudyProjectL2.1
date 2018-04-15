@@ -23,18 +23,23 @@
 #include "SimpleCLExecutorFactoryImpl.h"
 #include "IntHybridBitonicBlockSolver.h"
 #include "IntSimpleBitonicBlockBasedSorter.h"
+#include "IntGPUBitonicVerticalArraySolver.h"
+#include "IntHybridBitonicVerticalArraySolver.h"
+#include "IntVerticalArrayBasedBitonicSorter.h"
 #include "Util.h"
 
 using namespace std;
 
-#define SMALL_SIZE_TO_DEBUG 1
+#define DEBUG_MODE 0
+
+#define SMALL_SIZE_TO_DEBUG 0
 
 #if SMALL_SIZE_TO_DEBUG
 
-#define ARRAY_SIZE (4096)
-#define GLOBAL_SIZE_0 (16)
-#define GLOBAL_SIZE_1 (16)
-#define LOCAL_SIZE (8)
+#define ARRAY_SIZE (16)
+#define GLOBAL_SIZE_0 (4)
+#define GLOBAL_SIZE_1 (4)
+#define LOCAL_SIZE (2)
 #define LOCAL_SIZE_FOR_LOCAL_SORT (256)
 
 #else
@@ -42,7 +47,7 @@ using namespace std;
 #define ARRAY_SIZE (262144) // 512 * 512 = 262144
 #define GLOBAL_SIZE_0 (512)
 #define GLOBAL_SIZE_1 (512)
-#define LOCAL_SIZE (8)
+#define LOCAL_SIZE (16)
 #define LOCAL_SIZE_FOR_LOCAL_SORT (512)
 
 #endif
@@ -98,10 +103,11 @@ int main() {
     std::cout << "Bitonic sorting on CPU using sorting network:\n";
     testBitonicSortCPU(entries);
     
-    // GPU test (using sorting network)
-    //initTestData(entries);
-    //std::cout << "Bitonic sorting on GPU using sorting network:\n";
-    //testSortingNetworkBasedBitonicSortGPU(entries);
+    /*// GPU test (using sorting network)
+    initTestData(entries);
+    std::cout << "Bitonic sorting on GPU using sorting network:\n";
+    testSortingNetworkBasedBitonicSortGPU(entries);
+    */
     
     // GPU test (do not use sorting network)
     initTestData(entries);
@@ -157,15 +163,19 @@ void testBitonicSortGPU(const ElementList<int>& entries) {
     SimpleCLProgramFactoryPtr pProgramFactory = SimpleCLProgramFactoryPtr(new SimpleCLProgramFactoryImpl());
     SimpleCLExecutorFactoryPtr pSimpleExecutorFactory = SimpleCLExecutorFactoryPtr(new SimpleCLExecutorFactoryImpl(pProgramFactory));
     
-    BitonicBlockSolverPtr<int> pBitonicBlockSolver(new IntHybridBitonicBlockSolver(pSimpleExecutorFactory, LOCAL_SIZE_FOR_LOCAL_SORT));
+    WorkDims workDims({GLOBAL_SIZE_0, GLOBAL_SIZE_1}, {LOCAL_SIZE, LOCAL_SIZE});
+    BitonicVerticalArraySolverPtr<int> pGPUSolver(new IntGPUBitonicVerticalArraySolver(pSimpleExecutorFactory, workDims));
     
-    IntSimpleBitonicBlockBasedSorter sorter(pBitonicBlockSolver);
+    BitonicVerticalArraySolverPtr<int> pSolver(new IntHybridBitonicVerticalArraySolver(LOCAL_SIZE * LOCAL_SIZE, pGPUSolver));
+    
+    IntVerticalArrayBasedBitonicSorter sorter(pSolver);
     
     // Test the sorter
     testSorter(&sorter, entries);
     
     // Release
-    freePtr(pBitonicBlockSolver);
+    freePtr(pSolver);
+    freePtr(pGPUSolver);
     freePtr(pSimpleExecutorFactory);
     freePtr(pProgramFactory);
 }
@@ -191,7 +201,11 @@ void testSorter(ISorter<int>* pSorter, const ElementList<int>& entries) {
     assert(elementCnt == ARRAY_SIZE);
     
     for(unsigned int i = 0; i < elementCnt - 1; i++) {
-        //assert(sortedEntries[i] < sortedEntries[i + 1]);
+#if DEBUG_MODE
+        std::cout << "Sorted entry [" << i << "]: " << sortedEntries[i] << "\n";
+#else
+        assert(sortedEntries[i] < sortedEntries[i + 1]);
+#endif
     }
 }
 

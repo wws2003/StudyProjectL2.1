@@ -18,9 +18,11 @@ template<typename T>
 struct BitonicVerticalArray {
 public:
     BitonicVerticalArray(SortOrder sortOrder,
-                 size_t swapBlockSize,
-                 int sortingDepth,
-                 ElementListPtr<T> pElementList) : m_sortOrder(sortOrder),
+                         size_t orderKeptBlockSize,
+                         size_t swapBlockSize,
+                         int sortingDepth,
+                         ElementListPtr<T> pElementList) : m_sortOrder(sortOrder),
+    m_orderKeptBlockSize(orderKeptBlockSize),
     m_swapBlockSize(swapBlockSize),
     m_sortingDepth(sortingDepth),
     m_pElementList(pElementList){
@@ -28,10 +30,16 @@ public:
     
     // Order
     SortOrder m_sortOrder;
+    
+    // Order kept comparison count (i.e. number of sequential elements keeping the same sort order)
+    size_t m_orderKeptBlockSize;
+    
     // Swap block size (range against which comparison and swap can be carried out)
     size_t m_swapBlockSize;
+    
     // Sorting depth (actually can be deduced from swap block size and element count)
     int m_sortingDepth;
+    
     // Reference to main buffer
     ElementListPtr<T> m_pElementList;
 };

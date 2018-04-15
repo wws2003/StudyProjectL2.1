@@ -1,56 +1,52 @@
-#define DEVICE_SWAP(a,b) {int aux = a; a = b; b = aux;}
-
 #define ASCENDING (0)
 #define DESCENDING (1)
 
-/**
- *@param itemCount      Number of items in the block to be sorted (must be fit within an workgroup)
- *@param sortDirection  Direction of sort for the entire block
- *@param globalOffset   Offset in the global bufffer
- *@param sortBuffer     Local buffer to manipulate the sort
- *@param outputBuffer   Output of the sort
- */
-__kernel void bitonic_sort_local2(const int itemCount,
-                                  const int sortDirection,
-                                  const int globalOffset,
-                                  local int* sortBuffer,
-                                  global int* outputBuffer) {
+#define DEVICE_REVERSED_ORDER(a) (a == ASCENDING ? DESCENDING : ASCENDING)
+
+#define DEVICE_SWAP(a,b) {int aux = a; a = b; b = aux;}
+
+#define DEVICE_COMPARE_AND_SWAP(a,b,order) {if((a > b && order == ASCENDING) || (b > a && order == DESCENDING)){int aux = a; a = b; b = aux;}}
+
+__kernel void bitonic_vertical_array_solve(const int sortOrder,
+                                           const int orderKeptBlockSize,
+                                           const int sortBufferSize,
+                                           const int sortingDepth,
+                                           local int* sortBuffer,
+                                           global int* dataBuffer) {
+    size_t lI = get_local_id(0);
+    size_t lJ = get_local_id(1);
+    size_t lDim = get_local_size(0);
+    size_t lIndex = lJ * lDim + lI;
     
-    // Any constraint that itemCount must match the local size ?
-    size_t localIndex = get_local_id(0);
+    size_t groupIdI = get_group_id(0);
+    size_t groupIdJ = get_group_id(1);
+    size_t groupSize = get_local_size(0) * get_local_size(1);
+    size_t offset = groupSize * (groupIdJ * get_num_groups(0) + groupIdI);
+    size_t gIndex = offset + lIndex;
     
-    // Copy to (local) sort buffer (just one for each work item)
-    sortBuffer[localIndex] = outputBuffer[globalOffset + localIndex];
+    // Copy to local
+    sortBuffer[lIndex] = dataBuffer[gIndex];
     barrier(CLK_LOCAL_MEM_FENCE);
     
-    // Do sort
-    // 1. Swap following the given sort direction
-    // 2. Sort sub blocks until the size of one, with the direction determined by the given sort direction
-    int halfItemCount = itemCount >> 1;
+    // Solve local block
+    int reversedOrder = DEVICE_REVERSED_ORDER(sortOrder);
+    int lSortOrder = ((gIndex / orderKeptBlockSize) % 2 == 0) ? sortOrder : reversedOrder;
+    int swapDistance = sortBufferSize >> 1;
+    int lowerIndex = lIndex;
     
-    for(int swapDistance = itemCount >> 1; swapDistance > 1; swapDistance >>= 1) {
-        int lowerIndex = localIndex;
-        int higherIndex = lowerIndex + swapDistance;
-        bool inRange = higherIndex < itemCount;
-        bool toSwap = false;
-        
-        if (inRange) {
-            // Check if need to swap
-            int x0 = sortBuffer[lowerIndex];
-            int x1 = sortBuffer[higherIndex];
-            // To swap: When sortDirection = ASCENDING and x1 < x0 or sortDirection = DESCENDING and x0 > x1 or
-            toSwap = (sortDirection == ASCENDING) && (x1 < x0) || (sortDirection == DESCENDING) && (x0 > x1);
+    int c = sortingDepth;
+    while(c > 0) {
+        bool isSwapTarget = ((lowerIndex / swapDistance) % 2) == 0;
+        if (isSwapTarget) {
+            int higherIndex = lowerIndex + swapDistance;
+            DEVICE_COMPARE_AND_SWAP(sortBuffer[lowerIndex], sortBuffer[higherIndex], lSortOrder);
         }
-        
-        // Wait for all work items finish their work
         barrier(CLK_LOCAL_MEM_FENCE);
-        
-        // Swap if needed
-        if (toSwap) {
-            DEVICE_SWAP(sortBuffer[lowerIndex], sortBuffer[higherIndex]);
-        }
+        // Next column
+        c--;
+        swapDistance >>= 1;
     }
     
-    // Finally store to global memory
-    outputBuffer[globalOffset + localIndex] = sortBuffer[localIndex];
+    // Write back to global buffer
+    dataBuffer[gIndex] = sortBuffer[lIndex];
 }

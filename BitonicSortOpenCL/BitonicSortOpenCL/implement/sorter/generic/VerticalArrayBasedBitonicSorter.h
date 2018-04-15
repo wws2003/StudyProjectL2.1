@@ -14,8 +14,8 @@
 #include "ISorter.h"
 
 template<typename T>
-class VerticalArrayBasedBitonicSorter : ISorter<T> {
-    
+class VerticalArrayBasedBitonicSorter : public ISorter<T> {
+public:
     VerticalArrayBasedBitonicSorter(BitonicVerticalArraySolverPtr<T> pSolver);
     
     virtual ~VerticalArrayBasedBitonicSorter(){};

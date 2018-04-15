@@ -32,10 +32,14 @@ void VerticalArrayBasedBitonicSorter<T>::sort(const ElementList<T>& inElements,
     
     while (verticalArraySwapBlockSize <= elementCnt) {
         // Vertical array would have depth 1, 2, 4 ..., log2(elementCnt)
-        BitonicVerticalArray<T> vericalArray(sortOrder,
-                                             verticalArraySwapBlockSize,
-                                             sortingDepth,
-                                             &outElements);
+        // Order-kept elements count also matches to swap block size (2, 4, 8...)
+        BitonicVerticalArray<T> verticalArray(sortOrder,
+                                              verticalArraySwapBlockSize,
+                                              verticalArraySwapBlockSize,
+                                              sortingDepth,
+                                              &outElements);
+        
+        verticalArrays.emplace_back(verticalArray);
         
         verticalArraySwapBlockSize <<= 1;
         sortingDepth++;

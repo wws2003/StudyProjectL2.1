@@ -36,6 +36,8 @@ enum SortOrder {
 
 #define HOST_COMPARE_AND_SWAP(a,b,order) {if ((a > b && order == SortOrder::ASC) || (a < b && order == SortOrder::DESC)) {int aux = a; a = b; b = aux;} }
 
+#define HOST_REVERSED_ORDER(order) (order == SortOrder::ASC ? SortOrder::DESC : SortOrder::ASC)
+
 enum MACHINE {
     HOST = 0,
     DEVICE = 1
