@@ -10,6 +10,7 @@
 #include "IntGPUBitonicVerticalArraySolver.h"
 #include "SimplePrototypedCLEngine.h"
 #include "Util.h"
+#include <exception>
 
 IntGPUBitonicVerticalArraySolver::IntGPUBitonicVerticalArraySolver(
                                                                    SimpleCLExecutorFactoryPtr pSimpleExecutorFactory,
@@ -17,35 +18,46 @@ IntGPUBitonicVerticalArraySolver::IntGPUBitonicVerticalArraySolver(
 m_programName("/Users/wws2003/neo-c++/BitonicSortOpenCL/BitonicSortOpenCL/bitonic_verticalarray_sort.cl"),
 m_kernelName("bitonic_vertical_array_solve"),
 m_pSimpleExecutorFactory(pSimpleExecutorFactory),
-m_executingDims(executingDims) {
+m_executingDims(executingDims),
+m_pElementBuffer(NullPtr),
+m_localBuffer(NULL, executingDims.getLocalSize(0) * executingDims.getLocalSize(1), true) {
     
 }
 
-void IntGPUBitonicVerticalArraySolver::solve(const BitonicVerticalArray<int>& bitonicVerticalArray) const {
+IntGPUBitonicVerticalArraySolver::~IntGPUBitonicVerticalArraySolver() {
+    if (m_pElementBuffer != NullPtr) {
+        freePtr(m_pElementBuffer);
+    }
+}
+
+void IntGPUBitonicVerticalArraySolver::accept(const BitonicVerticalArrayData<int>& data) {
+    if (m_pElementBuffer != NullPtr) {
+        freePtr(m_pElementBuffer);
+    }
+    m_pElementBuffer = new IntBuffer(data.m_data, data.m_size);
+}
+
+void IntGPUBitonicVerticalArraySolver::solve(const BitonicVerticalArrayInfo<int>& info) {
+    
+    // Validation check
+    if (m_pElementBuffer == NullPtr) {
+        throw std::invalid_argument("Internal data empty");
+    }
     
     // Parameter setting
-    IntBuffer sortOrder(bitonicVerticalArray.m_sortOrder);
-    IntBuffer orderKeptBlockSize((int)bitonicVerticalArray.m_orderKeptBlockSize);
-    IntBuffer sortBufferSize((int)bitonicVerticalArray.m_swapBlockSize);
-    IntBuffer sortingDepth(bitonicVerticalArray.m_sortingDepth);
+    IntBuffer sortOrder(info.m_sortOrder);
+    IntBuffer orderKeptBlockSize((int)info.m_orderKeptBlockSize);
+    IntBuffer sortBufferSize((int)info.m_swapBlockSize);
+    IntBuffer sortingDepth(info.m_sortingDepth);
 
-    // Local buffer (2D). Memory not required to allocated
-    size_t localSize = m_executingDims.getLocalSize(0) * m_executingDims.getLocalSize(1);
-    IntBuffer localBuffer(NULL, localSize, true);
-    
-    // Copy values to inoutBuffer (2D). Any better solution to avoid create and copy ?
-    size_t globalSize = bitonicVerticalArray.m_pElementList->size();
-    IntBuffer inoutBuffer(globalSize, true);
-    collectToInoutBuffer(inoutBuffer, *bitonicVerticalArray.m_pElementList);
-    
     // Create CL engine
     ConstHostBufferSources inputs({&sortOrder,
         &orderKeptBlockSize,
         &sortBufferSize,
         &sortingDepth,
-        &localBuffer});
+        &m_localBuffer});
     
-    HostBufferSources outputs({&inoutBuffer});
+    HostBufferSources outputs({m_pElementBuffer});
     
     ParamTypes paramTypes({PT_CONSTANT,
         PT_CONSTANT,
@@ -66,24 +78,4 @@ void IntGPUBitonicVerticalArraySolver::solve(const BitonicVerticalArray<int>& bi
     pCLEngine->executeCLKernelForResult(m_programName, m_kernelName, m_executingDims, CL_DEVICE_TYPE_GPU, NULL);
     
     delete pCLEngine;
-    
-    // Collect results from inout buffer
-    collectFromInoutBuffer(inoutBuffer, *bitonicVerticalArray.m_pElementList);
-}
-
-void IntGPUBitonicVerticalArraySolver::collectToInoutBuffer(IntBuffer& inoutBuffer, const ElementList<int>& elements) const {
-    // Assume the size of element buffer fixed and memory initialized
-    size_t eleCount = inoutBuffer.size();
-    for (size_t index = 0; index < eleCount; index++) {
-        inoutBuffer.set(index, elements[index]);
-    }
-}
-
-
-void IntGPUBitonicVerticalArraySolver::collectFromInoutBuffer(const IntBuffer& inoutBuffer, ElementList<int>& elements) const {
-    // Copy from internal element buffer
-    size_t eleCount = inoutBuffer.size();
-    for (size_t index = 0; index < eleCount; index++) {
-        elements[index] = inoutBuffer[index];
-    }
 }

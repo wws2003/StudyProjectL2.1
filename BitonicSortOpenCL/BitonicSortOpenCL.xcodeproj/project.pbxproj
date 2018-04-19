@@ -49,7 +49,6 @@
 		404C6103205D74E900028161 /* SortingNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortingNetwork.h; sourceTree = "<group>"; };
 		405892622038B3490016CB28 /* libSimpleOpenCLLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSimpleOpenCLLib.a; path = ../SimpleOpenCLLib/output/Build/Products/Debug/libSimpleOpenCLLib.a; sourceTree = "<group>"; };
 		405892642039343A0016CB28 /* bitonic_swap2.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = bitonic_swap2.cl; sourceTree = "<group>"; };
-		4081FCD720821290001DC1BE /* BitonicVerticalArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitonicVerticalArray.h; sourceTree = "<group>"; };
 		4081FCDA20821745001DC1BE /* bitonic_verticalarray_sort.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = bitonic_verticalarray_sort.cl; sourceTree = "<group>"; };
 		4081FCDC20821CD4001DC1BE /* VerticalArrayBasedBitonicSorter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VerticalArrayBasedBitonicSorter.cpp; sourceTree = "<group>"; };
 		4081FCDD20821CD4001DC1BE /* VerticalArrayBasedBitonicSorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerticalArrayBasedBitonicSorter.h; sourceTree = "<group>"; };
@@ -78,6 +77,9 @@
 		4081FD0B2082542C001DC1BE /* SortingNetworkImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SortingNetworkImpl.cpp; sourceTree = "<group>"; };
 		4081FD0D208271CC001DC1BE /* IntGPUBitonicVerticalArraySolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntGPUBitonicVerticalArraySolver.cpp; sourceTree = "<group>"; };
 		4081FD0E208271CC001DC1BE /* IntGPUBitonicVerticalArraySolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntGPUBitonicVerticalArraySolver.h; sourceTree = "<group>"; };
+		4081FD102084FE0A001DC1BE /* BitonicVerticalArrayInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitonicVerticalArrayInfo.h; sourceTree = "<group>"; };
+		4081FD1120850496001DC1BE /* IBitonicVerticalArraySolverFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBitonicVerticalArraySolverFactory.h; sourceTree = "<group>"; };
+		4081FD122088EA6D001DC1BE /* BitonicVerticalArrayData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitonicVerticalArrayData.h; sourceTree = "<group>"; };
 		40ACB746206657A40090369A /* bitonic_sort2.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = bitonic_sort2.cl; sourceTree = "<group>"; };
 		40ACB7492066BC390090369A /* BitonicBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitonicBlock.h; sourceTree = "<group>"; };
 		40ACB74A2066C3A80090369A /* IBitonicBlockSolver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IBitonicBlockSolver.h; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				404C60FF205D714600028161 /* ISorter.h */,
 				40ACB74A2066C3A80090369A /* IBitonicBlockSolver.h */,
 				4081FCDF20821D8C001DC1BE /* IBitonicVerticalArraySolver.h */,
+				4081FD1120850496001DC1BE /* IBitonicVerticalArraySolverFactory.h */,
 			);
 			path = abstract;
 			sourceTree = "<group>";
@@ -248,7 +251,8 @@
 			isa = PBXGroup;
 			children = (
 				40ACB7492066BC390090369A /* BitonicBlock.h */,
-				4081FCD720821290001DC1BE /* BitonicVerticalArray.h */,
+				4081FD102084FE0A001DC1BE /* BitonicVerticalArrayInfo.h */,
+				4081FD122088EA6D001DC1BE /* BitonicVerticalArrayData.h */,
 			);
 			path = dto;
 			sourceTree = "<group>";

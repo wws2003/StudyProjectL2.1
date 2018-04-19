@@ -7,48 +7,66 @@
 //
 
 #include "IntHybridBitonicVerticalArraySolver.h"
+#include <exception>
 
-IntHybridBitonicVerticalArraySolver::IntHybridBitonicVerticalArraySolver(size_t maxWorkGroupSize, BitonicVerticalArraySolverPtr<int> pGPUSolver) : m_maxWorkGroupSize(maxWorkGroupSize), m_pGPUSolver(pGPUSolver){
+IntHybridBitonicVerticalArraySolver::IntHybridBitonicVerticalArraySolver(size_t maxWorkGroupSize, BitonicVerticalArraySolverPtr<int> pGPUSolver) : m_maxWorkGroupSize(maxWorkGroupSize), m_pGPUSolver(pGPUSolver), m_dataBuffer(NullPtr, 0){
 }
 
-void IntHybridBitonicVerticalArraySolver::solve(const BitonicVerticalArray<int>& bitonicVerticalArray) const {
+void IntHybridBitonicVerticalArraySolver::accept(const BitonicVerticalArrayData<int>& data)  {
+    // Store data buffer
+    m_dataBuffer.m_data = data.m_data;
+    m_dataBuffer.m_size = data.m_size;
+    
+    // Share data buffer to GPU solver
+    m_pGPUSolver->accept(data);
+}
+
+void IntHybridBitonicVerticalArraySolver::solve(const BitonicVerticalArrayInfo<int>& info) {
+    // Validation check
+    if (m_dataBuffer.m_size < 1) {
+        throw std::invalid_argument("Internal data is empty");
+    }
+    // Do the job
+    doSolve(info);
+}
+
+void IntHybridBitonicVerticalArraySolver::doSolve(const BitonicVerticalArrayInfo<int>& info) const {
     
     // Check if need anymore work
-    if (bitonicVerticalArray.m_sortingDepth < 1) {
+    if (info.m_sortingDepth < 1) {
         return;
     }
     
-    if (this->canDelegateToGPU(bitonicVerticalArray)) {
+    if (this->canDelegateToGPU(info)) {
         // Check then delegate to GPU solver if possible
-        m_pGPUSolver->solve(bitonicVerticalArray);
+        m_pGPUSolver->solve(info);
     } else {
         // Do the job myself
         // 1. Carry out first column
-        this->compareAndSwapFirstColumn(bitonicVerticalArray);
+        this->compareAndSwapFirstColumn(info);
         // 2. Create sub vertical array
-        BitonicVerticalArray<int> subVerticalArray(bitonicVerticalArray.m_sortOrder,
-                                                   bitonicVerticalArray.m_orderKeptBlockSize,
-                                                   bitonicVerticalArray.m_swapBlockSize >> 1,
-                                                   bitonicVerticalArray.m_sortingDepth - 1,
-                                                   bitonicVerticalArray.m_pElementList);
+        BitonicVerticalArrayInfo<int> subVerticalArrayInfo(info.m_sortOrder,
+                                                   info.m_orderKeptBlockSize,
+                                                   info.m_swapBlockSize >> 1,
+                                                   info.m_sortingDepth - 1);
         // 3. Do the job
-        this->solve(subVerticalArray);
+        this->doSolve(subVerticalArrayInfo);
     }
 }
 
-bool IntHybridBitonicVerticalArraySolver::canDelegateToGPU(const BitonicVerticalArray<int>& bitonicVerticalArray) const {
-    return bitonicVerticalArray.m_swapBlockSize == m_maxWorkGroupSize;
+bool IntHybridBitonicVerticalArraySolver::canDelegateToGPU(const BitonicVerticalArrayInfo<int>& info) const {
+    return info.m_swapBlockSize == m_maxWorkGroupSize;
 }
 
-void IntHybridBitonicVerticalArraySolver::compareAndSwapFirstColumn(const BitonicVerticalArray<int>& bitonicVerticalArray) const {
+void IntHybridBitonicVerticalArraySolver::compareAndSwapFirstColumn(const BitonicVerticalArrayInfo<int>& info) const {
     
-    ElementList<int>& elementList = *(bitonicVerticalArray.m_pElementList);
-    size_t elementCnt = elementList.size();
+    int* data = m_dataBuffer.m_data;
+    size_t elementCnt = m_dataBuffer.m_size;
     
     // Compare and swap block by block, from lower indexes to higher indexes
-    size_t swapDistance = bitonicVerticalArray.m_swapBlockSize >> 1;
+    size_t swapDistance = info.m_swapBlockSize >> 1;
     
-    SortOrder currentSortOrder = bitonicVerticalArray.m_sortOrder;
+    SortOrder currentSortOrder = info.m_sortOrder;
     SortOrder reversedSortOrder = HOST_REVERSED_ORDER(currentSortOrder);
     size_t currentLowerIndex = 0;
     
@@ -58,10 +76,10 @@ void IntHybridBitonicVerticalArraySolver::compareAndSwapFirstColumn(const Bitoni
         // Sort and swap current block
         for (size_t lowerIndex = currentLowerIndex; lowerIndex <= maxLowerIndex; lowerIndex++) {
             size_t higherIndex = lowerIndex + swapDistance;
-            HOST_COMPARE_AND_SWAP(elementList[lowerIndex], elementList[higherIndex], currentSortOrder);
+            HOST_COMPARE_AND_SWAP(data[lowerIndex], data[higherIndex], currentSortOrder);
         }
         // Next block
-        currentLowerIndex += bitonicVerticalArray.m_swapBlockSize;
-        currentSortOrder = (currentLowerIndex  / bitonicVerticalArray.m_orderKeptBlockSize) % 2 == 0 ? bitonicVerticalArray.m_sortOrder : reversedSortOrder;
+        currentLowerIndex += info.m_swapBlockSize;
+        currentSortOrder = (currentLowerIndex  / info.m_orderKeptBlockSize) % 2 == 0 ? info.m_sortOrder : reversedSortOrder;
     }
 }

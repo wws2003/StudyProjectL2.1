@@ -1,31 +1,29 @@
 //
-//  BitonicVerticalArray.h
+//  BitonicVerticalArrayInfo.h
 //  BitonicSortOpenCL
 //
-//  Created by wws2003 on 4/14/18.
+//  Created by wws2003 on 4/16/18.
 //  Copyright © 2018 tbg. All rights reserved.
 //
 
-#ifndef BitonicVerticalArray_h
-#define BitonicVerticalArray_h
+#ifndef BitonicVerticalArrayInfo_h
+#define BitonicVerticalArrayInfo_h
 
 #include "Common.h"
 
 /**
-* Struct to present vertical bin of elements in bitonic sort network
+ * Struct to present vertical bin of elements in bitonic sort network
  */
 template<typename T>
-struct BitonicVerticalArray {
+struct BitonicVerticalArrayInfo {
 public:
-    BitonicVerticalArray(SortOrder sortOrder,
+    BitonicVerticalArrayInfo(SortOrder sortOrder,
                          size_t orderKeptBlockSize,
                          size_t swapBlockSize,
-                         int sortingDepth,
-                         ElementListPtr<T> pElementList) : m_sortOrder(sortOrder),
+                         int sortingDepth) : m_sortOrder(sortOrder),
     m_orderKeptBlockSize(orderKeptBlockSize),
     m_swapBlockSize(swapBlockSize),
-    m_sortingDepth(sortingDepth),
-    m_pElementList(pElementList){
+    m_sortingDepth(sortingDepth) {
     };
     
     // Order
@@ -39,9 +37,7 @@ public:
     
     // Sorting depth (actually can be deduced from swap block size and element count)
     int m_sortingDepth;
-    
-    // Reference to main buffer
-    ElementListPtr<T> m_pElementList;
 };
 
-#endif /* BitonicVerticalArray_h */
+
+#endif /* BitonicVerticalArrayInfo_h */

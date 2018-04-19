@@ -7,6 +7,7 @@
 //
 
 #include "VerticalArrayBasedBitonicSorter.h"
+#include <algorithm>
 
 template<typename T>
 VerticalArrayBasedBitonicSorter<T>::VerticalArrayBasedBitonicSorter(BitonicVerticalArraySolverPtr<T> pSolver) : m_pSolver(pSolver) {
@@ -21,11 +22,8 @@ void VerticalArrayBasedBitonicSorter<T>::sort(const ElementList<T>& inElements,
     // Check validation
     validateElementsCount(elementCnt);
     
-    // First assign output elements to the input ones
-    outElements = inElements;
-    
-    // Initialize vertical arrays
-    std::vector<BitonicVerticalArray<T>> verticalArrays;
+    // Initialize vertical arrays info
+    std::vector<BitonicVerticalArrayInfo<T>> verticalArrays;
     
     size_t verticalArraySwapBlockSize = 2;
     int sortingDepth = 1;
@@ -33,11 +31,10 @@ void VerticalArrayBasedBitonicSorter<T>::sort(const ElementList<T>& inElements,
     while (verticalArraySwapBlockSize <= elementCnt) {
         // Vertical array would have depth 1, 2, 4 ..., log2(elementCnt)
         // Order-kept elements count also matches to swap block size (2, 4, 8...)
-        BitonicVerticalArray<T> verticalArray(sortOrder,
+        BitonicVerticalArrayInfo<T> verticalArray(sortOrder,
                                               verticalArraySwapBlockSize,
                                               verticalArraySwapBlockSize,
-                                              sortingDepth,
-                                              &outElements);
+                                              sortingDepth);
         
         verticalArrays.emplace_back(verticalArray);
         
@@ -45,12 +42,25 @@ void VerticalArrayBasedBitonicSorter<T>::sort(const ElementList<T>& inElements,
         sortingDepth++;
     }
     
+    // Create vertical array data
+    T* internalData = new T[elementCnt];
+    std::copy(inElements.begin(), inElements.end(), internalData);
+    BitonicVerticalArrayData<T> data(internalData, elementCnt);
+    
+    // Prepare solver
+    m_pSolver->accept(data);
+    
     // Solve the problem sequentially in the order of insertion
-    for (BitonicVerticalArray<T> verticalArray : verticalArrays) {
+    for (BitonicVerticalArrayInfo<T> verticalArray : verticalArrays) {
         m_pSolver->solve(verticalArray);
     }
     
-    // Collect results not needed since output elements effectively modified by solver
+    // Collect results
+    outElements.clear();
+    outElements.insert(outElements.begin(), data.m_data, data.m_data + data.m_size);
+    
+    // Free vertical array data
+    freePtr(data.m_data);
 }
 
 

@@ -20,18 +20,34 @@ public:
     /**
      *@Override
      */
-    virtual void solve(const BitonicVerticalArray<int>& bitonicVerticalArray) const;
+    virtual void accept(const BitonicVerticalArrayData<int>& data);
+    
+    /**
+     *@Override
+     */
+    virtual void solve(const BitonicVerticalArrayInfo<int>& bitonicVerticalArray);
 
 private:
+    
+    /**
+     * Solve assumpt internal data is valid
+     * @param info The info to solve
+     */
+    virtual void doSolve(const BitonicVerticalArrayInfo<int>& info) const;
+    
     /**
     * Check if solving problem can delegate to GPU
+    * @param info The info to solve
     */
-    bool canDelegateToGPU(const BitonicVerticalArray<int>& bitonicVerticalArray) const;
+    bool canDelegateToGPU(const BitonicVerticalArrayInfo<int>& info) const;
     
     /**
     * Carry out the compare and swap on the first column of given vertical array
+    * @param info The info to solve
     */
-    void compareAndSwapFirstColumn(const BitonicVerticalArray<int>& bitonicVerticalArray) const;
+    void compareAndSwapFirstColumn(const BitonicVerticalArrayInfo<int>& info) const;
+    
+    BitonicVerticalArrayData<int> m_dataBuffer;
     
     // Max work group size (to detect swap block size can delegate to GPU solver)
     size_t m_maxWorkGroupSize;

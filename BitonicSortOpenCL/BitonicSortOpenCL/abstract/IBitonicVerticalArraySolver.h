@@ -10,10 +10,11 @@
 #define IBitonicVerticalArraySolver_h
 
 #include "Common.h"
-#include "BitonicVerticalArray.h"
+#include "BitonicVerticalArrayInfo.h"
+#include "BitonicVerticalArrayData.h"
 
 /**
-* Interface to carry out sorting operations against one bitonic vertical array
+* Interface to carry out sorting operations against one bitonic vertical array data
 */
 
 template<typename T>
@@ -23,9 +24,17 @@ public:
     virtual ~IBitonicVerticalArraySolver(){};
     
     /**
-    * Solve (compare-and-swap given vertical array) 
-    */
-    virtual void solve(const BitonicVerticalArray<T>& bitonicVerticalArray) const = 0;
+     * Store elements into internal data structure
+     * @param data
+     */
+    virtual void accept(const BitonicVerticalArrayData<T>& data) = 0;
+    
+    /**
+     * Solve (compare-and-swap given vertical array) against stored data, 
+     * practically update the internal data
+     * @param bitonicVerticalArrayInfo
+     */
+    virtual void solve(const BitonicVerticalArrayInfo<T>& bitonicVerticalArrayInfo) = 0;
 };
 
 

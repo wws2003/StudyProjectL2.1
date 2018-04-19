@@ -20,13 +20,17 @@ public:
     IntGPUBitonicVerticalArraySolver(SimpleCLExecutorFactoryPtr pSimpleExecutorFactory,
                                 WorkDims executingDims);
     
-    virtual ~IntGPUBitonicVerticalArraySolver(){};
+    virtual ~IntGPUBitonicVerticalArraySolver();
     
     /**
      * @Override
-     * Solve (compare-and-swap given vertical array)
      */
-    virtual void solve(const BitonicVerticalArray<int>& bitonicVerticalArray) const;
+    virtual void accept(const BitonicVerticalArrayData<int>& data);
+    
+    /**
+     * @Override
+     */
+    virtual void solve(const BitonicVerticalArrayInfo<int>& info);
     
 private:
     /**
@@ -48,6 +52,10 @@ private:
     const std::string m_kernelName;
     SimpleCLExecutorFactoryPtr m_pSimpleExecutorFactory;
     WorkDims m_executingDims;
+    
+    // Internal-used buffer
+    IntBuffer m_localBuffer;
+    IntBuffer* m_pElementBuffer;
 };
 
 #endif /* IntGPUBitonicVerticalArraySolver_h */

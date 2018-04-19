@@ -15,6 +15,10 @@ template<typename T>
 class GenericBuffer : public IHostBufferSource {
 public:
     
+    /**
+     * Construct buffer for one value (short cut for constructing from array)
+     * @Param val The value set to buffer
+     */
     GenericBuffer(const T& val) {
         m_array = new T[1];
         m_array[0] = val;
@@ -22,6 +26,24 @@ public:
         m_autoRelease = true;
     }
     
+    /**
+     * Construct buffer from array (using the given array memory itself instead of creating new one)
+     * @Param array The array set to buffer
+     * @Param size Size of the array set to buffer
+     */
+    GenericBuffer(T* array, size_t size) {
+        m_size = size;
+        m_array = array;
+        m_autoRelease = false;
+    }
+    
+    
+    /**
+     * Construct buffer from array by copying values into internal memory
+     * @Param array The array set to buffer
+     * @Param size Size of the array set to copy
+     * @Param autoRelease Flag to decide if internal memory should be released in destructor
+     */
     GenericBuffer(T* array, size_t size, bool autoRelease) {
         m_size = size;
         if (array != NULL) {
@@ -36,6 +58,11 @@ public:
         m_autoRelease = autoRelease;
     }
     
+    /**
+     * Construct buffer by creating array of given size
+     * @Param size Size of the array set to buffer
+     * @Param autoRelease Flag to decide if internal memory should be released in destructor
+     */
     GenericBuffer(size_t size, bool autoRelease) {
         m_array = new T[size];
         m_size = size;

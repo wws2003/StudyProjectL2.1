@@ -40,6 +40,8 @@ using namespace std;
 #define GLOBAL_SIZE_0 (4)
 #define GLOBAL_SIZE_1 (4)
 #define LOCAL_SIZE (2)
+#define LOCAL_SIZE_0 (2)
+#define LOCAL_SIZE_1 (2)
 #define LOCAL_SIZE_FOR_LOCAL_SORT (256)
 
 #else
@@ -48,6 +50,8 @@ using namespace std;
 #define GLOBAL_SIZE_0 (512)
 #define GLOBAL_SIZE_1 (512)
 #define LOCAL_SIZE (16)
+#define LOCAL_SIZE_0 (16)
+#define LOCAL_SIZE_1 (32)
 #define LOCAL_SIZE_FOR_LOCAL_SORT (512)
 
 #endif
@@ -163,10 +167,10 @@ void testBitonicSortGPU(const ElementList<int>& entries) {
     SimpleCLProgramFactoryPtr pProgramFactory = SimpleCLProgramFactoryPtr(new SimpleCLProgramFactoryImpl());
     SimpleCLExecutorFactoryPtr pSimpleExecutorFactory = SimpleCLExecutorFactoryPtr(new SimpleCLExecutorFactoryImpl(pProgramFactory));
     
-    WorkDims workDims({GLOBAL_SIZE_0, GLOBAL_SIZE_1}, {LOCAL_SIZE, LOCAL_SIZE});
+    WorkDims workDims({GLOBAL_SIZE_0, GLOBAL_SIZE_1}, {LOCAL_SIZE_0, LOCAL_SIZE_1});
     BitonicVerticalArraySolverPtr<int> pGPUSolver(new IntGPUBitonicVerticalArraySolver(pSimpleExecutorFactory, workDims));
     
-    BitonicVerticalArraySolverPtr<int> pSolver(new IntHybridBitonicVerticalArraySolver(LOCAL_SIZE * LOCAL_SIZE, pGPUSolver));
+    BitonicVerticalArraySolverPtr<int> pSolver(new IntHybridBitonicVerticalArraySolver(LOCAL_SIZE_0 * LOCAL_SIZE_1, pGPUSolver));
     
     IntVerticalArrayBasedBitonicSorter sorter(pSolver);
     
