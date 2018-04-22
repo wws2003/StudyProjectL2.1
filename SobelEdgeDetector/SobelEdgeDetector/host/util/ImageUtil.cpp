@@ -7,3 +7,11 @@
 //
 
 #include "ImageUtil.h"
+
+void ImageUtil::readImage(const char* imgFileName, BmpImageModel* pOutputModel) {
+    // TODO Implement
+}
+
+void ImageUtil::writeImage(const char* fileName, const char* refFileName, const BmpImageModel& inputModel) {
+    // TODO Implement   
+}

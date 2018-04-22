@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		40C944CB208B804F00A9C329 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40C944CA208B804F00A9C329 /* main.cpp */; };
+		40C944D4208C92EA00A9C329 /* convolution.cl in Sources */ = {isa = PBXBuildFile; fileRef = 40C944D3208C92EA00A9C329 /* convolution.cl */; };
+		40C944D8208C935A00A9C329 /* ImageUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40C944D6208C935A00A9C329 /* ImageUtil.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,11 @@
 /* Begin PBXFileReference section */
 		40C944C7208B804F00A9C329 /* SobelEdgeDetector */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SobelEdgeDetector; sourceTree = BUILT_PRODUCTS_DIR; };
 		40C944CA208B804F00A9C329 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		40C944D3208C92EA00A9C329 /* convolution.cl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.opencl; path = convolution.cl; sourceTree = "<group>"; };
+		40C944D6208C935A00A9C329 /* ImageUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageUtil.cpp; sourceTree = "<group>"; };
+		40C944D7208C935A00A9C329 /* ImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtil.h; sourceTree = "<group>"; };
+		40C944DA208C93C900A9C329 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		40C944DB208C958E00A9C329 /* BmpImageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BmpImageModel.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +64,46 @@
 		40C944C9208B804F00A9C329 /* SobelEdgeDetector */ = {
 			isa = PBXGroup;
 			children = (
+				40C944D2208C87E100A9C329 /* host */,
+				40C944D1208C87D300A9C329 /* kernel */,
 				40C944CA208B804F00A9C329 /* main.cpp */,
 			);
 			path = SobelEdgeDetector;
+			sourceTree = "<group>";
+		};
+		40C944D1208C87D300A9C329 /* kernel */ = {
+			isa = PBXGroup;
+			children = (
+				40C944D3208C92EA00A9C329 /* convolution.cl */,
+			);
+			path = kernel;
+			sourceTree = "<group>";
+		};
+		40C944D2208C87E100A9C329 /* host */ = {
+			isa = PBXGroup;
+			children = (
+				40C944D9208C93B000A9C329 /* common */,
+				40C944D5208C934500A9C329 /* util */,
+			);
+			path = host;
+			sourceTree = "<group>";
+		};
+		40C944D5208C934500A9C329 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				40C944D6208C935A00A9C329 /* ImageUtil.cpp */,
+				40C944D7208C935A00A9C329 /* ImageUtil.h */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		40C944D9208C93B000A9C329 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				40C944DA208C93C900A9C329 /* Common.h */,
+				40C944DB208C958E00A9C329 /* BmpImageModel.h */,
+			);
+			path = common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +162,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40C944D8208C935A00A9C329 /* ImageUtil.cpp in Sources */,
 				40C944CB208B804F00A9C329 /* main.cpp in Sources */,
+				40C944D4208C92EA00A9C329 /* convolution.cl in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
