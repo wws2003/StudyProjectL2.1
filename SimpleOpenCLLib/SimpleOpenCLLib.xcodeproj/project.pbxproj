@@ -40,6 +40,8 @@
 		4058925E2038AD530016CB28 /* OpenCL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4058925D2038AD530016CB28 /* OpenCL.framework */; };
 		405892712039F6B20016CB28 /* WorkDims.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4058926F2039F6B20016CB28 /* WorkDims.cpp */; };
 		405892722039F6B20016CB28 /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405892702039F6B20016CB28 /* Util.cpp */; };
+		40C944DF208CA75000A9C329 /* SimpleKernelBasedCLEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 40C944DD208CA75000A9C329 /* SimpleKernelBasedCLEngine.h */; };
+		40C944E1208CA8B700A9C329 /* SimpleKernelBasedCLEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40C944E0208CA8B700A9C329 /* SimpleKernelBasedCLEngine.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +79,8 @@
 		4058925D2038AD530016CB28 /* OpenCL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCL.framework; path = System/Library/Frameworks/OpenCL.framework; sourceTree = SDKROOT; };
 		4058926F2039F6B20016CB28 /* WorkDims.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WorkDims.cpp; sourceTree = "<group>"; };
 		405892702039F6B20016CB28 /* Util.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Util.cpp; sourceTree = "<group>"; };
+		40C944DD208CA75000A9C329 /* SimpleKernelBasedCLEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleKernelBasedCLEngine.h; sourceTree = "<group>"; };
+		40C944E0208CA8B700A9C329 /* SimpleKernelBasedCLEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleKernelBasedCLEngine.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +171,7 @@
 				405892392038AB610016CB28 /* KernelExecutable.h */,
 				4058923A2038AB610016CB28 /* SimpleCLExecutorImpl.h */,
 				4058923B2038AB610016CB28 /* SimpleCLExecutorFactoryImpl.h */,
+				40C944DD208CA75000A9C329 /* SimpleKernelBasedCLEngine.h */,
 			);
 			path = concrete;
 			sourceTree = "<group>";
@@ -183,6 +188,7 @@
 		405892462038AB850016CB28 /* concrete */ = {
 			isa = PBXGroup;
 			children = (
+				40C944E0208CA8B700A9C329 /* SimpleKernelBasedCLEngine.cpp */,
 				4058924B2038AC410016CB28 /* KernelArgumentContainerFactoryImpl.cpp */,
 				4058924C2038AC410016CB28 /* SimpleCLExecutorImpl.cpp */,
 				4058924D2038AC410016CB28 /* SimplePrototypedCLEngine.cpp */,
@@ -220,6 +226,7 @@
 				4058923D2038AB610016CB28 /* NormalBufferKernelArgumentContainerImpl.hpp in Headers */,
 				4058922A2038AB150016CB28 /* ISimpleCLExecutorFactory.h in Headers */,
 				405892272038AB150016CB28 /* IKernelArgumentContainer.h in Headers */,
+				40C944DF208CA75000A9C329 /* SimpleKernelBasedCLEngine.h in Headers */,
 				4058924A2038ABC10016CB28 /* AbstractCLEngine.h in Headers */,
 				405892432038AB610016CB28 /* SimpleCLExecutorImpl.h in Headers */,
 				405892282038AB150016CB28 /* ISimpleCLProgram.h in Headers */,
@@ -291,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4058925B2038AC410016CB28 /* KernelExecutable.cpp in Sources */,
+				40C944E1208CA8B700A9C329 /* SimpleKernelBasedCLEngine.cpp in Sources */,
 				405892542038AC410016CB28 /* KernelArgumentContainerFactoryImpl.cpp in Sources */,
 				4058925C2038AC410016CB28 /* SimpleCLExecutorFactoryImpl.cpp in Sources */,
 				405892562038AC410016CB28 /* SimplePrototypedCLEngine.cpp in Sources */,
@@ -390,6 +398,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -421,6 +430,7 @@
 				4058920D2038A9720016CB28 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

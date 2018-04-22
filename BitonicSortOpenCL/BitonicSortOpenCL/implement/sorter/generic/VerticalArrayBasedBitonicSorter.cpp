@@ -60,7 +60,7 @@ void VerticalArrayBasedBitonicSorter<T>::sort(const ElementList<T>& inElements,
     outElements.insert(outElements.begin(), data.m_data, data.m_data + data.m_size);
     
     // Free vertical array data
-    freePtr(data.m_data);
+    delete[] internalData;
 }
 
 

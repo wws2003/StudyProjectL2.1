@@ -131,6 +131,14 @@ void initTestData(ElementList<int>& entries) {
     std::mt19937 g(rd());
     
     std::shuffle(entries.begin(), entries.end(), g);
+    
+#if DEBUG_MODE
+    std::cout << "Test dataset:\n";
+    for(size_t i = 0; i < ARRAY_SIZE; i++) {
+        std::cout << "Test entry [" << i << "]: " << entries[i] << "\n";
+    }
+#endif
+
 }
 
 void testBitonicSortCPU(const ElementList<int>& entries) {
@@ -166,9 +174,10 @@ void testBitonicSortGPU(const ElementList<int>& entries) {
     // Create GPU bitonic sorter
     SimpleCLProgramFactoryPtr pProgramFactory = SimpleCLProgramFactoryPtr(new SimpleCLProgramFactoryImpl());
     SimpleCLExecutorFactoryPtr pSimpleExecutorFactory = SimpleCLExecutorFactoryPtr(new SimpleCLExecutorFactoryImpl(pProgramFactory));
-    
     WorkDims workDims({GLOBAL_SIZE_0, GLOBAL_SIZE_1}, {LOCAL_SIZE_0, LOCAL_SIZE_1});
-    BitonicVerticalArraySolverPtr<int> pGPUSolver(new IntGPUBitonicVerticalArraySolver(pSimpleExecutorFactory, workDims));
+    
+    BitonicVerticalArraySolverPtr<int> pGPUSolver(new IntGPUBitonicVerticalArraySolver(pSimpleExecutorFactory,
+                                                                                       workDims));
     
     BitonicVerticalArraySolverPtr<int> pSolver(new IntHybridBitonicVerticalArraySolver(LOCAL_SIZE_0 * LOCAL_SIZE_1, pGPUSolver));
     
@@ -207,6 +216,9 @@ void testSorter(ISorter<int>* pSorter, const ElementList<int>& entries) {
     for(unsigned int i = 0; i < elementCnt - 1; i++) {
 #if DEBUG_MODE
         std::cout << "Sorted entry [" << i << "]: " << sortedEntries[i] << "\n";
+        if (i == elementCnt - 2) {
+            std::cout << "Sorted entry [" << (i + 1) << "]: " << sortedEntries[i + 1] << "\n";
+        }
 #else
         assert(sortedEntries[i] < sortedEntries[i + 1]);
 #endif

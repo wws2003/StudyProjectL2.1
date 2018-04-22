@@ -27,16 +27,18 @@ void SimplePrototypedCLEngine::initCLInputParams(HostInputParams& hostInputParam
     unsigned int paramTypeIndex = 0;
     
     // Set input buffers to input params
-    for (unsigned int i = 0; i < m_inputs.size(); i++) {
+    size_t inputSize = m_inputs.size();
+    for (unsigned int i = 0; i < inputSize; i++) {
         HostBufferExt inputBuffer;
         m_inputs[i]->toHostInputBuffer(m_paramTypes[paramTypeIndex++], inputBuffer);
-        hostInputParams.push_back(inputBuffer);
+        hostInputParams.emplace_back(inputBuffer);
     }
     // Also set output bufffers to input params so that device can write the result
-    for (unsigned int i = 0; i < m_outputs.size(); i++) {
+    size_t outputSize = m_outputs.size();
+    for (unsigned int i = 0; i < outputSize; i++) {
         HostBufferExt inputBuffer;
         m_outputs[i]->toHostInputBuffer(m_paramTypes[paramTypeIndex++], inputBuffer);
-        hostInputParams.push_back(inputBuffer);
+        hostInputParams.emplace_back(inputBuffer);
     }
 }
 

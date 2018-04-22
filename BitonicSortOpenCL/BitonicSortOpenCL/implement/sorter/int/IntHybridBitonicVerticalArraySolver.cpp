@@ -55,6 +55,7 @@ void IntHybridBitonicVerticalArraySolver::doSolve(const BitonicVerticalArrayInfo
 }
 
 bool IntHybridBitonicVerticalArraySolver::canDelegateToGPU(const BitonicVerticalArrayInfo<int>& info) const {
+    //return 256 <= info.m_swapBlockSize && info.m_swapBlockSize <= m_maxWorkGroupSize;
     return info.m_swapBlockSize == m_maxWorkGroupSize;
 }
 

@@ -14,6 +14,9 @@
 #include "ISimpleCLExecutorFactory.h"
 #include "GenericBuffer.hpp"
 
+/**
+ * Class for abstract parameter-based CL engine, i.e. working with fixed params, mutable program paradigm
+ */
 class AbstractCLEngine {
 public:
     

@@ -13,12 +13,11 @@
 #include "Common.h"
 #include "common.h"
 #include "WorkDims.h"
-#include "AbstractCLEngine.h"
+#include "SimpleKernelBasedCLEngine.h"
 
 class IntGPUBitonicVerticalArraySolver : public IBitonicVerticalArraySolver<int> {
 public:
-    IntGPUBitonicVerticalArraySolver(SimpleCLExecutorFactoryPtr pSimpleExecutorFactory,
-                                WorkDims executingDims);
+    IntGPUBitonicVerticalArraySolver(SimpleCLExecutorFactoryPtr pSimpleExecutorFactory, const WorkDims& executingWorkDims);
     
     virtual ~IntGPUBitonicVerticalArraySolver();
     
@@ -47,11 +46,8 @@ private:
      */
     void collectFromInoutBuffer(const IntBuffer& elementBuffer, ElementList<int>& elements) const;
     
-    // CL services and configurations
-    const std::string m_programName;
-    const std::string m_kernelName;
-    SimpleCLExecutorFactoryPtr m_pSimpleExecutorFactory;
-    WorkDims m_executingDims;
+    // CL engine
+    SimpleKernelBasedCLEngine* m_pCLEngine;
     
     // Internal-used buffer
     IntBuffer m_localBuffer;
