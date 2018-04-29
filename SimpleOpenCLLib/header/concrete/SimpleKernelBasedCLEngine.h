@@ -39,6 +39,12 @@ public:
                                   HostBufferSources outputs,
                                   TimeSpec* pTimeSpec);
     
+    /**
+     * Execute current kernel program against dynamically given parameters (handy method to make it easier for the calling source code)
+     * @param pTimeSpec
+     */
+    void executeCLKernelForResult(TimeSpec* pTimeSpec, ...);
+    
 protected:
     // Below protected methods are subjects for overriden by subclass
     /**

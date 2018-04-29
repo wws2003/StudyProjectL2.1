@@ -53,6 +53,53 @@ void SimpleKernelBasedCLEngine::executeCLKernelForResult(ConstHostBufferSources 
     m_pCLExecutor->getResult(submission, hostOutputParams, pTimeSpec);
 }
 
+
+void SimpleKernelBasedCLEngine::executeCLKernelForResult(TimeSpec* pTimeSpec, ...) {
+    size_t inputParamCnt = m_paramTypes.size();
+    
+    std::vector<HostBufferSourcePtr> hostBufferPtrSources;
+    std::vector<HostBufferSourcePtr> hostOutputBufferPtrSources;
+    
+    // Parse variadic parameters
+    va_list args;
+    va_start(args, pTimeSpec);
+    for(unsigned int i = 0; i < inputParamCnt; i++) {
+        // Next param
+        HostBufferSourcePtr pHostBufferSource = va_arg(args, HostBufferSourcePtr);
+        hostBufferPtrSources.emplace_back(pHostBufferSource);
+        
+        // If is param for output, push to hostOutputBufferPtrSources
+        ParamType paramType = m_paramTypes[i];
+        if (paramType == ParamType::PT_GLOBAL_OUT || paramType == ParamType::PT_GLOBAL_INOUT) {
+            hostOutputBufferPtrSources.emplace_back(pHostBufferSource);
+        }
+    }
+    
+    // Create host input params (including params for output purpose)
+    HostInputParams hostInputParams;
+    for(unsigned int i = 0; i < inputParamCnt; i++) {
+        HostBufferExt hostBufferExt;
+        hostBufferPtrSources[i]->toHostInputBuffer(m_paramTypes[i], hostBufferExt);
+        hostInputParams.emplace_back(hostBufferExt);
+    }
+    
+    // Submit
+    submission_t submission = m_pCLExecutor->submitOnce(m_kernelName.data(), m_executingWorkDims, hostInputParams);
+    
+    // Output
+    HostOutputParams hostOutputParams;
+    for (HostBufferSourcePtr pOutputBufferSourcePtr : hostOutputBufferPtrSources) {
+        HostBuffer outputBuffer;
+        pOutputBufferSourcePtr->toHostOutputBuffer(outputBuffer);
+        hostOutputParams.emplace_back(outputBuffer);
+    }
+    
+    // Retrieve result back
+    m_pCLExecutor->getResult(submission, hostOutputParams, pTimeSpec);
+}
+
+/*--------------------------------MARK: Private methods------------------------------*/
+
 void SimpleKernelBasedCLEngine::initProgramPrototype(std::string kernelName, const OutputParamIndices& outputParamsIndices, ProgramPrototype& programPrototype) {
     programPrototype[kernelName] = KernelPrototypePtr(new KernelPrototype(kernelName, outputParamsIndices));
 }

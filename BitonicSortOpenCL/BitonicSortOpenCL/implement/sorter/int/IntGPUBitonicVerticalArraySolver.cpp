@@ -61,13 +61,14 @@ void IntGPUBitonicVerticalArraySolver::solve(const BitonicVerticalArrayInfo<int>
     IntBuffer orderKeptBlockSize((int)info.m_orderKeptBlockSize);
     IntBuffer sortBufferSize((int)info.m_swapBlockSize);
 
-    // Create CL engine
-    ConstHostBufferSources inputs({&sortOrder,
-        &orderKeptBlockSize,
-        &sortBufferSize,
-        &m_localBuffer});
+    // Ideally is some call like this
+    // m_pCLEngine->executeCLKernelForResult(info.m_sortOrder, (int)info.m_orderKeptBlockSize, (int)info.m_swapBlockSize, &m_localBuffer, m_pElementBuffer);
     
-    HostBufferSources outputs({m_pElementBuffer});
-    
-    m_pCLEngine->executeCLKernelForResult(inputs, outputs, NULL);
+    // Execute kernel to retrieve result
+    m_pCLEngine->executeCLKernelForResult(NULL,
+                                          &sortOrder,
+                                          &orderKeptBlockSize,
+                                          &sortBufferSize,
+                                          &m_localBuffer,
+                                          m_pElementBuffer);
 }

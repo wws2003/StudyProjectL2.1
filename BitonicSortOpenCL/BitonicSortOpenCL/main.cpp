@@ -107,11 +107,10 @@ int main() {
     std::cout << "Bitonic sorting on CPU using sorting network:\n";
     testBitonicSortCPU(entries);
     
-    /*// GPU test (using sorting network)
+    // GPU test (using sorting network)
     initTestData(entries);
     std::cout << "Bitonic sorting on GPU using sorting network:\n";
     testSortingNetworkBasedBitonicSortGPU(entries);
-    */
     
     // GPU test (do not use sorting network)
     initTestData(entries);

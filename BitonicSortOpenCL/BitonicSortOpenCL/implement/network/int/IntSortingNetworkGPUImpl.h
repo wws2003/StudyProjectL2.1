@@ -12,7 +12,7 @@
 #include "SortingNetworkImpl.h"
 #include "common.h"
 #include "WorkDims.h"
-#include "AbstractCLEngine.h"
+#include "SimpleKernelBasedCLEngine.h"
 
 class IntSortingNetworkGPUImpl : public SortingNetworkImpl<int> {
 public:
@@ -50,13 +50,9 @@ public:
 
     
 private:
-    // CL services and configurations
-    const std::string m_programName;
-    const std::string m_kernelName;
-    SimpleCLExecutorFactoryPtr m_pSimpleExecutorFactory;
-    WorkDims m_executingDims;
-    cl_device_type m_deviceType;
-    
+    // CL engine
+    SimpleKernelBasedCLEngine* m_pCLEngine;
+
     // Internal-used buffer
     IntBuffer* m_pElementBuffer;
 };
