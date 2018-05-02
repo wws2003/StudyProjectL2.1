@@ -10,6 +10,8 @@
 		40C944CB208B804F00A9C329 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40C944CA208B804F00A9C329 /* main.cpp */; };
 		40C944D4208C92EA00A9C329 /* convolution.cl in Sources */ = {isa = PBXBuildFile; fileRef = 40C944D3208C92EA00A9C329 /* convolution.cl */; };
 		40C944D8208C935A00A9C329 /* ImageUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40C944D6208C935A00A9C329 /* ImageUtil.cpp */; };
+		40D4E69E2095700C0078B32A /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40D4E69C2095700C0078B32A /* FileUtil.cpp */; };
+		40D4E6A72095B21A0078B32A /* ImageFilterApplierCLImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40D4E6A52095B21A0078B32A /* ImageFilterApplierCLImpl.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +34,12 @@
 		40C944D7208C935A00A9C329 /* ImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtil.h; sourceTree = "<group>"; };
 		40C944DA208C93C900A9C329 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		40C944DB208C958E00A9C329 /* BmpImageModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BmpImageModel.h; sourceTree = "<group>"; };
+		40D4E69C2095700C0078B32A /* FileUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtil.cpp; sourceTree = "<group>"; };
+		40D4E69D2095700C0078B32A /* FileUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtil.h; sourceTree = "<group>"; };
+		40D4E6A12095B03A0078B32A /* IImageFilterApplier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IImageFilterApplier.h; sourceTree = "<group>"; };
+		40D4E6A52095B21A0078B32A /* ImageFilterApplierCLImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageFilterApplierCLImpl.cpp; sourceTree = "<group>"; };
+		40D4E6A62095B21A0078B32A /* ImageFilterApplierCLImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilterApplierCLImpl.h; sourceTree = "<group>"; };
+		40D4E6A820970C520078B32A /* ConvolutionProgramModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConvolutionProgramModel.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +90,8 @@
 		40C944D2208C87E100A9C329 /* host */ = {
 			isa = PBXGroup;
 			children = (
+				40D4E6A02095AC740078B32A /* concrete */,
+				40D4E69F2095AC680078B32A /* abstract */,
 				40C944D9208C93B000A9C329 /* common */,
 				40C944D5208C934500A9C329 /* util */,
 			);
@@ -93,6 +103,8 @@
 			children = (
 				40C944D6208C935A00A9C329 /* ImageUtil.cpp */,
 				40C944D7208C935A00A9C329 /* ImageUtil.h */,
+				40D4E69C2095700C0078B32A /* FileUtil.cpp */,
+				40D4E69D2095700C0078B32A /* FileUtil.h */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -104,6 +116,24 @@
 				40C944DB208C958E00A9C329 /* BmpImageModel.h */,
 			);
 			path = common;
+			sourceTree = "<group>";
+		};
+		40D4E69F2095AC680078B32A /* abstract */ = {
+			isa = PBXGroup;
+			children = (
+				40D4E6A12095B03A0078B32A /* IImageFilterApplier.h */,
+			);
+			path = abstract;
+			sourceTree = "<group>";
+		};
+		40D4E6A02095AC740078B32A /* concrete */ = {
+			isa = PBXGroup;
+			children = (
+				40D4E6A52095B21A0078B32A /* ImageFilterApplierCLImpl.cpp */,
+				40D4E6A62095B21A0078B32A /* ImageFilterApplierCLImpl.h */,
+				40D4E6A820970C520078B32A /* ConvolutionProgramModel.h */,
+			);
+			path = concrete;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +195,8 @@
 				40C944D8208C935A00A9C329 /* ImageUtil.cpp in Sources */,
 				40C944CB208B804F00A9C329 /* main.cpp in Sources */,
 				40C944D4208C92EA00A9C329 /* convolution.cl in Sources */,
+				40D4E6A72095B21A0078B32A /* ImageFilterApplierCLImpl.cpp in Sources */,
+				40D4E69E2095700C0078B32A /* FileUtil.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +315,7 @@
 				40C944D0208B804F00A9C329 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

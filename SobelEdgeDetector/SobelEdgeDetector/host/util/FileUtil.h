@@ -9,6 +9,15 @@
 #ifndef FileUtil_h
 #define FileUtil_h
 
-#include <stdio.h>
+#include <cstdlib>
+#include "Common.h"
+
+class FileUtil {
+public:
+    /**
+     * Read the file content given the file full path
+     */
+    static const char* readFile(const char* filePath);
+};
 
 #endif /* FileUtil_h */

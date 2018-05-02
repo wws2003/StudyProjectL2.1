@@ -21,17 +21,16 @@ public:
     /**
      * Read data from file
      * @param imgFileName Image file name (full path)
-     * @param pOutputModel Address of image model to read data into
+     * @param outputModel Reference of image model to read data into
      */
-    static void readImage(const char* imgFileName, BmpImageModel* pOutputModel);
+    static void readImage(const char* imgFileName, BmpImageModel& outputModel);
     
     /**
      * Output data to file
-     * @param fileName ?
-     * @param refFileName ?
+     * @param fileName Output image file name (full path)
      * @param inputModel Model of input image to write
      */
-    static void writeImage(const char* fileName, const char* refFileName, const BmpImageModel& inputModel);
+    static void writeImage(const char* fileName, const BmpImageModel& inputModel);
 };
 
 #endif 

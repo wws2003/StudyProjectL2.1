@@ -9,16 +9,31 @@
 #ifndef BmpImageModel_h
 #define BmpImageModel_h
 
+#include <cstdlib>
 #include "Common.h"
 
+struct BmpImageData {
+    // Image data capacity
+    size_t m_size;
+    // Image data
+    image_ele_t* m_buffer;
+};
+
+struct BmpFileMeta {
+    // Image pixel array offset
+    image_size_t m_offset;
+    // TODO Add more attributes if needed
+};
+
 struct BmpImageModel {
-public:
     // Width
     image_size_t m_width;
     // Height
     image_size_t m_height;
     // Data
-    image_ele_t m_data;
+    BmpImageData m_data;
+    // File metadata
+    BmpFileMeta m_fileMeta;
 };
 
 #endif /* BmpImageModel_h */
