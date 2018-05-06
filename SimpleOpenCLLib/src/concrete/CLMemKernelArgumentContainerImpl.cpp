@@ -29,7 +29,7 @@ void CLMemKernelArgumentContainerImpl::createKernelArgument(cl_context context, 
     cl_mem memBuffer = clCreateBuffer(context,
                                       m_memFlags,
                                       m_size,
-                                      m_memFlags & (CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR) ? m_data : NULL,
+                                      m_memFlags & (CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR) ? m_data : NULL,
                                       &errCode);
     m_mem = memBuffer;
     

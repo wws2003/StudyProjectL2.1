@@ -44,13 +44,13 @@ KernelArgumentContainerPtr KernelArgumentContainerFactoryImpl::getKernelArgument
 cl_mem_flags KernelArgumentContainerFactoryImpl::computeMemFlags(ParamType paramType) {
     if (paramType == PT_GLOBAL_IN) {
         //TODO More sohisticated solution
-        return CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR;
+        return CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR;
     }
     if (paramType == PT_GLOBAL_OUT) {
         return CL_MEM_READ_WRITE;
     }
     if (paramType == PT_GLOBAL_INOUT) {
-        return CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR;
+        return CL_MEM_READ_WRITE | CL_MEM_USE_HOST_PTR;
     }
     logAndThrow("No such a proper param type for CL_MEM object");
     return 0;

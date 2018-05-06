@@ -23,6 +23,14 @@ public:
     virtual void filter(const BmpImageModel& sourceImage, const filter_t& filter, BmpImageModel& outImage);
     
 private:
+    
+    /**
+     * Initialize image output model instance from source images (effectively setup metadata: width, height...)
+     * @param sourceImage
+     * @param outImage
+     */
+    void initImageOutput(const BmpImageModel& sourceImage, BmpImageModel& outImage);
+    
     /**
      * Initialize and return the convolution program structure to be ready for executing on device
      * @param sourceImage

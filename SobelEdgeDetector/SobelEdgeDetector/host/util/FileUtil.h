@@ -17,7 +17,7 @@ public:
     /**
      * Read the file content given the file full path
      */
-    static const char* readFile(const char* filePath);
+    static std::string readFile(const char* filePath);
 };
 
 #endif /* FileUtil_h */

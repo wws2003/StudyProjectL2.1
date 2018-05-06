@@ -8,15 +8,30 @@
 
 #include "ImageFilterApplierCLImpl.h"
 #include <stdexcept>
+#include <sstream>
 
 ImageFilterApplierCLImpl::ImageFilterApplierCLImpl(cl_context context, cl_command_queue commandQueue, cl_kernel kernel) : m_context(context), m_commandQueue(commandQueue), m_kernel(kernel) {
 }
 
 void ImageFilterApplierCLImpl::filter(const BmpImageModel& sourceImage, const filter_t& filter, BmpImageModel& outImage) {
     // Prepare out image size first
+    /*--------------------------------------------------------------------------------------------------------------
+     AGAIN, calling other method cause error with clCreateImage ???????????????????????????????????????????????????????????
+     ---------------------------------------------------------------------------------------------------------------*/
+    
+    //initImageOutput(sourceImage, outImage);
+    
+    // Size
     outImage.m_width = sourceImage.m_width;
     outImage.m_height = sourceImage.m_height;
+    
+    // Data
     outImage.m_data.m_size = sourceImage.m_data.m_size;
+    // Data will be prepared when reading from cl_mem
+    outImage.m_data.m_buffer = NULL;
+    
+    // Meta data
+    outImage.m_fileMeta = sourceImage.m_fileMeta;
     
     // Initialize program model
     ConvolutionProgramModel program = createConvolutionProgramModel(sourceImage, filter, outImage);
@@ -35,6 +50,22 @@ void ImageFilterApplierCLImpl::filter(const BmpImageModel& sourceImage, const fi
 }
 
 /*---------------------------MARK: Private methods---------------------------*/
+
+void ImageFilterApplierCLImpl::initImageOutput(const BmpImageModel& sourceImage, BmpImageModel& outImage) {
+    // Size
+    outImage.m_width = sourceImage.m_width;
+    outImage.m_height = sourceImage.m_height;
+    
+    // Data
+    outImage.m_data.m_size = sourceImage.m_data.m_size;
+    // Data will be prepared when reading from cl_mem
+    outImage.m_data.m_buffer = NULL;
+    
+    // Meta data
+    outImage.m_fileMeta.m_offset = sourceImage.m_fileMeta.m_offset;
+    outImage.m_fileMeta.m_headerRawData = new char[outImage.m_fileMeta.m_offset];
+    std::copy(sourceImage.m_fileMeta.m_headerRawData, sourceImage.m_fileMeta.m_headerRawData + sourceImage.m_fileMeta.m_offset, outImage.m_fileMeta.m_headerRawData);
+}
 
 ConvolutionProgramModel ImageFilterApplierCLImpl::createConvolutionProgramModel(const BmpImageModel& sourceImage,
                                                            const filter_t& filter,
@@ -83,7 +114,7 @@ void ImageFilterApplierCLImpl::sendDataToDevice(const ConvolutionProgramModel& p
                         NULL);
     clChk(ret, "clEnqueueWriteImage");
     
-    // Out image: No things need to be done
+    // Out image: No things need to be done yet
     
     // Filter
     ret = clEnqueueWriteBuffer(m_commandQueue,
@@ -118,6 +149,8 @@ void ImageFilterApplierCLImpl::executeConvolutionProgramModel(const ConvolutionP
 }
 
 void ImageFilterApplierCLImpl::readResult(const ConvolutionProgramModel& programModel, BmpImageModel& outImage) {
+    // Host memory
+    outImage.m_data.m_buffer = new image_ele_t[outImage.m_data.m_size];
     // Blocking read
     cl_bool blockingRead = CL_TRUE;
     // Offset: Start from zero
@@ -147,13 +180,18 @@ cl_mem ImageFilterApplierCLImpl::createImage2DReadOnlyMemSpace(const BmpImageMod
 
 cl_mem ImageFilterApplierCLImpl::createImage2DMemSpace(const BmpImageModel& imageModel, cl_mem_flags imageMemFlags) {
     cl_image_format imageFormat;
-    imageFormat.image_channel_order = CL_R; // Only get red channel ?
+    imageFormat.image_channel_order = CL_R; // Only get first channel ?
     imageFormat.image_channel_data_type = CL_FLOAT; // float data type
     
     cl_image_desc imageDesc;
     imageDesc.image_type = CL_MEM_OBJECT_IMAGE2D;
     imageDesc.image_width = imageModel.m_width;
     imageDesc.image_height = imageModel.m_height;
+    imageDesc.image_row_pitch = 0;
+    imageDesc.image_slice_pitch = 0;
+    imageDesc.num_mip_levels = 0;
+    imageDesc.num_samples = 0;
+    imageDesc.buffer = NULL;
     
     // Create image buffer (host ptr is set to NULL to allow data to be sent later)
     cl_int ret;
@@ -187,9 +225,10 @@ void ImageFilterApplierCLImpl::readImage2DMem(cl_mem image2DMem, BmpImageModel& 
     clChk(ret, "clEnqueueReadImage");
 }
 
-void ImageFilterApplierCLImpl::clChk(int status, const std::string& command) {
-    if (status != CL_SUCCESS) {
-        std::string message = "OpenCL runtime error for command: " + command;
-        throw std::runtime_error(message);
+void ImageFilterApplierCLImpl::clChk(int errorCode, const std::string& command) {
+    if (errorCode != CL_SUCCESS) {
+        std::stringstream ms;
+        ms << "OpenCL runtime error for command: " << command << " with error code = " << errorCode;
+        throw std::runtime_error(ms.str());
     }
 }

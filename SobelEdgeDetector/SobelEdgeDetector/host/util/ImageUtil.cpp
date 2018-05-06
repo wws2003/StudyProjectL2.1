@@ -17,29 +17,31 @@ void ImageUtil::readImage(const char* imgFileName, BmpImageModel& outputModel) {
     // Open file
     std::fstream fs(imgFileName, std::iostream::in | std::iostream::binary);
     
-    image_size_t offset;
-    image_size_t width;
-    image_size_t height;
+    image_size_t width = 0;
+    image_size_t height = 0;
+    image_size_t size = 0;
+    image_size_t offset = 0;
+    char* headerRawData = NULL;
     
     // Offset
     fs.seekg(10);
+    // Looks like NG since fs would read into the first 4 bytes of a 8-byte size_t variable
+    // But actually it works as both program memory model and BMP data format byte ordering is Litle-Endian (i.e. Least significant byte first)
     fs.read((char*)&offset, 4);
     
     // Width, height
     fs.seekg(18);
-    fs >> width;
     fs.read((char*)&width, 4);
-    fs >> height;
     fs.read((char*)&height, 4);
+    size = width * height;
     
-    // To specify number of pixel each row to be thrown away
-    int padding = width % 4;
-    if (padding != 0) {
-        padding = 4 - padding;
-    }
-
+    // Back to begin of file to read header data
+    headerRawData = new char[offset];
+    fs.seekg(0);
+    fs.read((char*)headerRawData, offset);
+    
     // Pixel array (read from upside-down into right-side up)
-    uchar* tmpImageData = new uchar[width * height];
+    char* tmpImageData = new char[size];
     
     // NOTE bitmaps are stored in upside-down raster order.  So we begin
     // reading from the bottom left pixel, then going from left-to-right,
@@ -47,6 +49,12 @@ void ImageUtil::readImage(const char* imgFileName, BmpImageModel& outputModel) {
     // we want the image to be right-side up, so we'll modify it here.
     
     // First we read the image in upside-down
+    
+    // To specify number of pixel each row to be thrown away
+    int padding = width % 4;
+    if (padding != 0) {
+        padding = 4 - padding;
+    }
     
     // Read in the actual image
     fs.seekg(offset);
@@ -88,22 +96,23 @@ void ImageUtil::readImage(const char* imgFileName, BmpImageModel& outputModel) {
     // Set to result
     outputModel.m_width = width;
     outputModel.m_height = height;
-    outputModel.m_data.m_size = width * height;
+    outputModel.m_data.m_size = size;
     outputModel.m_data.m_buffer = imageDataBuffer;
     outputModel.m_fileMeta.m_offset = offset;
+    outputModel.m_fileMeta.m_headerRawData = headerRawData;
 }
 
 void ImageUtil::writeImage(const char* fileName, const BmpImageModel& inputModel) {
-    // TODO Implement
     std::fstream fs(fileName, std::iostream::out | std::iostream::binary);
     
     image_size_t width = inputModel.m_width;
     image_size_t height = inputModel.m_height;
     image_ele_t* imageBuffer = inputModel.m_data.m_buffer;
+    char* headerRawData = inputModel.m_fileMeta.m_headerRawData;
     image_size_t offset = inputModel.m_fileMeta.m_offset;
     
     // Pixel array
-    size_t imageDataSize = ((BITS_PER_PIXEL * width + 31) / 32) * 4;
+    size_t imageDataSize = ((BITS_PER_PIXEL * width + 31) / 32) * 4 * (height);
     uchar* tmpImageData = new uchar[imageDataSize];
     
     // Copy from host-used model
@@ -133,18 +142,12 @@ void ImageUtil::writeImage(const char* fileName, const BmpImageModel& inputModel
     
     // Write to output file
     
-    // TODO Header
-    fs.seekg(10);
-    fs.write((const char*)offset, 4);
+    // Header (contains width, height...)
+    fs.write((const char*)headerRawData, offset);
     
-    // Width, height
-    fs.seekg(18);
-    fs.write((const char*)width, 4);
-    fs.write((const char*)height, 4);
-    
-    // Data
-    fs.seekg(offset);
+    // Pixel array
     fs.write((const char*)tmpImageData, imageDataSize);
     
+    // Cleanup
     delete [] tmpImageData;
 }

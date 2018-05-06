@@ -179,6 +179,19 @@ void printDeviceInfo(cl_device_id deviceId) {
     else {
         std::cerr << "Can not detect max work group size of device " << deviceId << " due to error " << err << std::endl;
     }
+    
+    // Image support
+    cl_bool isImageSupport;
+    err = clGetDeviceInfo(deviceId,
+                          CL_DEVICE_IMAGE_SUPPORT,
+                          sizeof(cl_bool),
+                          &isImageSupport,
+                          &size);
+    if (err == CL_SUCCESS) {
+        std::cout << "Is image supported by device " << deviceId << " " << (isImageSupport ? "True" : "False") << std::endl;
+    } else {
+        std::cerr << "Can not detect if device " << deviceId << " supports image " << err << std::endl;
+    }
 }
 
 void displayPlatformInfo(cl_platform_id id,

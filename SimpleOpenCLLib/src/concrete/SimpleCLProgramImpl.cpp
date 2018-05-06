@@ -104,7 +104,7 @@ void SimpleCLProgramImpl::createKernelBuffersForInputParams(const HostInputParam
     for (unsigned int i = 0; i < inputParams.size(); i++) {
         HostBufferExt hostInputBufferParam = inputParams[i];
         KernelArgumentContainerPtr pKernelArgumentContainer = m_pKernelArgumentContainerFactory->getKernelArgumentContainer(hostInputBufferParam);
-        kernelArgumentContainers.push_back(pKernelArgumentContainer);
+        kernelArgumentContainers.emplace_back(pKernelArgumentContainer);
     }
 }
 
@@ -125,10 +125,16 @@ void SimpleCLProgramImpl::setKernelBufferArguments(cl_kernel kernel, const Kerne
 }
 
 cl_kernel SimpleCLProgramImpl::getKernelFromName(const char* kernelName) {
-    cl_kernel kernel = clCreateKernel(m_builtProgram, kernelName, NULL);
-    if (kernel == NULL) {
-        logAndThrow("Can not create kernel " + std::string(kernelName));
+    std::string kernelNameStr(kernelName);
+    if (m_kernelCache.count(kernelNameStr) > 0) {
+        return m_kernelCache[kernelNameStr];
     }
+    cl_int ret;
+    cl_kernel kernel = clCreateKernel(m_builtProgram, kernelName, &ret);
+    if (ret != CL_SUCCESS) {
+        logAndThrow("Can not create kernel " + kernelNameStr + " due to error " + std::to_string(ret));
+    }
+    m_kernelCache[kernelNameStr] = kernel;
     return kernel;
 }
 

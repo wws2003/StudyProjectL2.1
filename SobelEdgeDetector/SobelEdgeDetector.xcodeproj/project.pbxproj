@@ -72,6 +72,7 @@
 		40C944C9208B804F00A9C329 /* SobelEdgeDetector */ = {
 			isa = PBXGroup;
 			children = (
+				40D4E6A9209DFB4B0078B32A /* img */,
 				40C944D2208C87E100A9C329 /* host */,
 				40C944D1208C87D300A9C329 /* kernel */,
 				40C944CA208B804F00A9C329 /* main.cpp */,
@@ -134,6 +135,13 @@
 				40D4E6A820970C520078B32A /* ConvolutionProgramModel.h */,
 			);
 			path = concrete;
+			sourceTree = "<group>";
+		};
+		40D4E6A9209DFB4B0078B32A /* img */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = img;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +250,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OPENCL_OPTIMIZATION_LEVEL = 0;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -270,6 +279,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -278,6 +288,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OPENCL_OPTIMIZATION_LEVEL = 0;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -285,6 +296,9 @@
 		40C944CF208B804F00A9C329 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				OPENCL_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -292,6 +306,10 @@
 		40C944D0208B804F00A9C329 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OPENCL_OPTIMIZATION_LEVEL = 0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

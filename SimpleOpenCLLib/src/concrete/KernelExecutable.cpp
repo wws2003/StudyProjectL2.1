@@ -16,9 +16,6 @@ KernelExecutable::KernelExecutable(cl_kernel kernel,
 }
 
 KernelExecutable::~KernelExecutable() {
-    //Release kernel
-    clReleaseKernel(m_kernel);
-    
     //Release buffer objects
     for (KernelArgumentContainers::iterator bIter = m_argumentContainers.begin(); bIter != m_argumentContainers.end(); ) {
         delete *bIter;

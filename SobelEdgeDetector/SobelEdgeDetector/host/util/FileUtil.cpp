@@ -12,18 +12,14 @@
 #include <fstream>
 #include <sstream>
 
-const char* FileUtil::readFile(const char* filePath) {
-    std::ifstream kernelFile(filePath, std::ios::in);
-    if (!kernelFile.is_open()) {
+std::string FileUtil::readFile(const char* filePath) {
+    std::ifstream fstream(filePath, std::ios::in);
+    if (!fstream.is_open()) {
         std::cerr << "Failed to open CL source file for reading: " << filePath << std::endl;
         throw std::runtime_error("Failed to open CL source file for reading");
     }
     
     std::ostringstream oss;
-    oss << kernelFile.rdbuf();
-    std::string srcStdStr = oss.str();
-    
-    kernelFile.close();
-    
-    return srcStdStr.data();
+    oss << fstream.rdbuf();
+    return oss.str();
 }

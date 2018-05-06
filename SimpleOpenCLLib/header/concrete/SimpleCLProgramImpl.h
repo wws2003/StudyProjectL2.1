@@ -16,6 +16,7 @@
 #include <map>
 #include <string>
 
+typedef std::map<std::string, cl_kernel> KernelMap;
 typedef std::map<submission_t, KernelExecutablePtr> KernelExecutableMap;
 
 class SimpleCLProgramImpl : public ISimpleCLProgram {
@@ -67,7 +68,7 @@ private:
     cl_program m_builtProgram;
     
     ProgramPrototype m_programPrototype;
-    
+    KernelMap m_kernelCache;
     KernelExecutableMap m_kernelExecutableMap;
 };
 

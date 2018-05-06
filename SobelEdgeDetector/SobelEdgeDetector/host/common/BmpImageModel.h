@@ -22,6 +22,8 @@ struct BmpImageData {
 struct BmpFileMeta {
     // Image pixel array offset
     image_size_t m_offset;
+    // Header data
+    char* m_headerRawData;
     // TODO Add more attributes if needed
 };
 
