@@ -25,6 +25,9 @@ cl_int detectDevices(cl_platform_id platformId,
 
 void printDeviceInfo(cl_device_id deviceId);
 
+template<typename T>
+T getAndPrintDeviceInfo(cl_device_id deviceId, cl_device_info paramName, std::string paramLabel, cl_int& err);
+
 void displayPlatformInfo(cl_platform_id id,
                          cl_platform_info name,
                          std::string str);
@@ -67,6 +70,7 @@ void invesigateDevices() {
                     
                     for (cl_uint k = 0; k < nbDevices; k++) {
                         printDeviceInfo(deviceIds[k]);
+                        printf("\n\n");
                     }
                 }
             }
@@ -131,67 +135,67 @@ cl_int detectDevices(cl_platform_id platformId,
 }
 
 void printDeviceInfo(cl_device_id deviceId) {
-    //Number of compute units
     cl_int err;
-    size_t size;
-    cl_uint maxComputeUnits;
-    
-    err = clGetDeviceInfo(deviceId,
-                          CL_DEVICE_MAX_COMPUTE_UNITS,
-                          sizeof(cl_uint),
-                          &maxComputeUnits,
-                          &size);
-    
-    if (err == CL_SUCCESS) {
-        std::cout << "--Device has max compute units: " << maxComputeUnits << std::endl;
-    }
-    else {
-        std::cerr << "Can not detect max compute units of device " << deviceId << std::endl;
-    }
-    
+    //Number of compute units
+    getAndPrintDeviceInfo<cl_uint>(deviceId, CL_DEVICE_MAX_COMPUTE_UNITS, "CL_DEVICE_MAX_COMPUTE_UNITS", err);
+
     //Dimension of work items
-    cl_uint maxWorkItemDimensions;
-    err = clGetDeviceInfo(deviceId,
-                          CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS,
-                          sizeof(cl_uint),
-                          &maxWorkItemDimensions,
-                          &size);
+    cl_uint maxWorkItemDimensions = getAndPrintDeviceInfo<cl_uint>(deviceId, CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, "CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS", err);
     
     if (err == CL_SUCCESS) {
-        std::cout << "--Device has max work items dimension: " << maxWorkItemDimensions << std::endl;
         //Number of work items on each work item dimension
         printWorkItemSizeInDimensions(deviceId, maxWorkItemDimensions);
     }
-    else {
-        std::cerr << "Can not detect max work items dimensions of device " << deviceId << std::endl;
-    }
     
     //Max work group size
-    size_t maxWorkGroupSize;
-    err = clGetDeviceInfo(deviceId,
-                          CL_DEVICE_MAX_WORK_GROUP_SIZE,
-                          sizeof(size_t),
-                          &maxWorkGroupSize,
-                          &size);
-    if (err == CL_SUCCESS) {
-        std::cout << "--Device has max work group size = " << maxWorkGroupSize << std::endl;
-    }
-    else {
-        std::cerr << "Can not detect max work group size of device " << deviceId << " due to error " << err << std::endl;
-    }
+    getAndPrintDeviceInfo<size_t>(deviceId, CL_DEVICE_MAX_WORK_GROUP_SIZE, "CL_DEVICE_MAX_WORK_GROUP_SIZE", err);
     
     // Image support
-    cl_bool isImageSupport;
+    getAndPrintDeviceInfo<cl_bool>(deviceId, CL_DEVICE_IMAGE_SUPPORT, "CL_DEVICE_IMAGE_SUPPORT", err);
+    
+    // Image 1D/2D max array size
+    getAndPrintDeviceInfo<size_t>(deviceId, CL_DEVICE_IMAGE_MAX_ARRAY_SIZE, "CL_DEVICE_IMAGE_MAX_ARRAY_SIZE", err);
+    
+    // Image 2D max width
+    getAndPrintDeviceInfo<size_t>(deviceId, CL_DEVICE_IMAGE2D_MAX_WIDTH, "CL_DEVICE_IMAGE2D_MAX_WIDTH", err);
+    
+    // Image 2D max height
+    getAndPrintDeviceInfo<size_t>(deviceId, CL_DEVICE_IMAGE2D_MAX_HEIGHT, "CL_DEVICE_IMAGE2D_MAX_HEIGHT", err);
+    
+    // Device max allocation size
+    getAndPrintDeviceInfo<unsigned long long>(deviceId, CL_DEVICE_MAX_MEM_ALLOC_SIZE, "CL_DEVICE_MAX_MEM_ALLOC_SIZE", err);
+}
+
+template<typename T>
+T getAndPrintDeviceInfo(cl_device_id deviceId, cl_device_info paramName, std::string paramLabel, cl_int& err) {
+    
+    T paramVal;
+    size_t size;
     err = clGetDeviceInfo(deviceId,
-                          CL_DEVICE_IMAGE_SUPPORT,
-                          sizeof(cl_bool),
-                          &isImageSupport,
+                          paramName,
+                          sizeof(T),
+                          &paramVal,
                           &size);
+    
     if (err == CL_SUCCESS) {
-        std::cout << "Is image supported by device " << deviceId << " " << (isImageSupport ? "True" : "False") << std::endl;
+        std::cout << "On device "
+                << deviceId
+                << " param "
+                << paramLabel
+                << " has value "
+                << paramVal
+                << std::endl;
     } else {
-        std::cerr << "Can not detect if device " << deviceId << " supports image " << err << std::endl;
+        std::cerr << "Can not detect "
+                << paramLabel
+                << " on device "
+                << deviceId
+                << " due to error "
+                << err
+                << std::endl;
     }
+    
+    return paramVal;
 }
 
 void displayPlatformInfo(cl_platform_id id,
@@ -227,7 +231,7 @@ void printWorkItemSizeInDimensions(cl_device_id deviceId, cl_uint maxWorkItemDim
     size_t* maxWorkItemSizes = (size_t*)alloca(maxWorkItemDimensions * sizeof(size_t));
     size_t size;
     
-    cl_uint err = clGetDeviceInfo(deviceId,
+    cl_int err = clGetDeviceInfo(deviceId,
                           CL_DEVICE_MAX_WORK_ITEM_SIZES,
                           maxWorkItemDimensions * sizeof(size_t),
                           maxWorkItemSizes,

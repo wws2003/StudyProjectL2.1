@@ -51,64 +51,7 @@ int main(int argc, const char * argv[]) {
     ImageUtil::readImage(sourceImagePath, sourceImageModel);
     
     // Apply filter
-    
-    /*----------------------------------------------------------------------------------------------------------------
-    // Temporaly move filter initialization code here since there is some problem causing clCreateImage error (invalid value) if conduct
-    // initialization by calling createImageFilterApplier (possibly due to imprope retain/release ?)
-     ----------------------------------------------------------------------------------------------------------------*/
-    cl_int ret;
-    
-    // Detect platform
-    cl_platform_id platformId;
-    cl_uint platformCnt;
-    ret = clGetPlatformIDs(1, &platformId, &platformCnt);
-    clChk(ret, "clGetPlatformIDs");
-    
-    cl_device_type deviceType = CL_DEVICE_TYPE_GPU;
-    
-    // Detect device
-    cl_device_id deviceId;
-    cl_uint clDeviceCnt;
-    ret = clGetDeviceIDs(platformId, deviceType, 1, &deviceId, &clDeviceCnt);
-    clChk(ret, "clGetDeviceIDs");
-    if (clDeviceCnt < 1) {
-        throw std::runtime_error("Can not get device");
-    }
-    
-    // Create context
-    cl_context_properties contextProperties[] = {
-        CL_CONTEXT_PLATFORM,
-        (cl_context_properties)platformId,
-        0
-    };
-    cl_context context = clCreateContext(contextProperties, 1, &deviceId, NULL, NULL, &ret);
-    clChk(ret, "clCreateContextFromType");
-    
-    // Create command queue (only on one device)
-    
-    cl_command_queue_properties commandQueueProperties = 0;
-    cl_command_queue commandQueue = clCreateCommandQueue(context, deviceId, commandQueueProperties, &ret);
-    clChk(ret, "clCreateCommandQueue");
-    
-    // Create and build program
-    const char* programFilePath = "/Users/wws2003/neo-c++/SobelEdgeDetector/SobelEdgeDetector/kernel/convolution.cl";
-    std::string programSource = FileUtil::readFile(programFilePath);
-    size_t programSourceSize = programSource.length();
-    const char* pProgramSource = programSource.data();
-    cl_program program = clCreateProgramWithSource(context, 1, &pProgramSource, &programSourceSize, &ret);
-    clChk(ret, "clCreateProgramWithSource");
-    
-    ret = clBuildProgram(program, 1, &deviceId, NULL, NULL, NULL);
-    clChk(ret, "clBuildProgram");
-    
-    // Create kernel
-    const char* kernelName = "convolution";
-    cl_kernel kernel = clCreateKernel(program, kernelName, &ret);
-    clChk(ret, "clCreateKernel");
-
-    ImageFilterApplierPtr pImageFilterApplier = ImageFilterApplierPtr(new ImageFilterApplierCLImpl(context, commandQueue, kernel));
-    
-    //ImageFilterApplierPtr pImageFilterApplier = createImageFilterApplier();
+    ImageFilterApplierPtr pImageFilterApplier = createImageFilterApplier();
     pImageFilterApplier->filter(sourceImageModel, filter, outImageModel);
     
     // Output

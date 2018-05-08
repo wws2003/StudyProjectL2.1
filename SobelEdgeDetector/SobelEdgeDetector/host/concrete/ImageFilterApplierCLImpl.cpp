@@ -9,29 +9,14 @@
 #include "ImageFilterApplierCLImpl.h"
 #include <stdexcept>
 #include <sstream>
+#include <iostream>
 
 ImageFilterApplierCLImpl::ImageFilterApplierCLImpl(cl_context context, cl_command_queue commandQueue, cl_kernel kernel) : m_context(context), m_commandQueue(commandQueue), m_kernel(kernel) {
 }
 
 void ImageFilterApplierCLImpl::filter(const BmpImageModel& sourceImage, const filter_t& filter, BmpImageModel& outImage) {
     // Prepare out image size first
-    /*--------------------------------------------------------------------------------------------------------------
-     AGAIN, calling other method cause error with clCreateImage ???????????????????????????????????????????????????????????
-     ---------------------------------------------------------------------------------------------------------------*/
-    
-    //initImageOutput(sourceImage, outImage);
-    
-    // Size
-    outImage.m_width = sourceImage.m_width;
-    outImage.m_height = sourceImage.m_height;
-    
-    // Data
-    outImage.m_data.m_size = sourceImage.m_data.m_size;
-    // Data will be prepared when reading from cl_mem
-    outImage.m_data.m_buffer = NULL;
-    
-    // Meta data
-    outImage.m_fileMeta = sourceImage.m_fileMeta;
+    initImageOutput(sourceImage, outImage);
     
     // Initialize program model
     ConvolutionProgramModel program = createConvolutionProgramModel(sourceImage, filter, outImage);
@@ -51,20 +36,26 @@ void ImageFilterApplierCLImpl::filter(const BmpImageModel& sourceImage, const fi
 
 /*---------------------------MARK: Private methods---------------------------*/
 
-void ImageFilterApplierCLImpl::initImageOutput(const BmpImageModel& sourceImage, BmpImageModel& outImage) {
+void ImageFilterApplierCLImpl::initImageOutput(const BmpImageModel& sourceImage, BmpImageModel& outImage) const {
     // Size
     outImage.m_width = sourceImage.m_width;
     outImage.m_height = sourceImage.m_height;
     
     // Data
     outImage.m_data.m_size = sourceImage.m_data.m_size;
+    
+    // Meta data
+    outImage.m_fileMeta.m_offset = sourceImage.m_fileMeta.m_offset;
+    
     // Data will be prepared when reading from cl_mem
     outImage.m_data.m_buffer = NULL;
     
     // Meta data
     outImage.m_fileMeta.m_offset = sourceImage.m_fileMeta.m_offset;
     outImage.m_fileMeta.m_headerRawData = new char[outImage.m_fileMeta.m_offset];
-    std::copy(sourceImage.m_fileMeta.m_headerRawData, sourceImage.m_fileMeta.m_headerRawData + sourceImage.m_fileMeta.m_offset, outImage.m_fileMeta.m_headerRawData);
+    std::copy(sourceImage.m_fileMeta.m_headerRawData,
+              sourceImage.m_fileMeta.m_headerRawData + sourceImage.m_fileMeta.m_offset,
+              outImage.m_fileMeta.m_headerRawData);
 }
 
 ConvolutionProgramModel ImageFilterApplierCLImpl::createConvolutionProgramModel(const BmpImageModel& sourceImage,
@@ -184,6 +175,7 @@ cl_mem ImageFilterApplierCLImpl::createImage2DMemSpace(const BmpImageModel& imag
     imageFormat.image_channel_data_type = CL_FLOAT; // float data type
     
     cl_image_desc imageDesc;
+    std::memset(&imageDesc, 0, sizeof(cl_image_desc));
     imageDesc.image_type = CL_MEM_OBJECT_IMAGE2D;
     imageDesc.image_width = imageModel.m_width;
     imageDesc.image_height = imageModel.m_height;

@@ -21,5 +21,6 @@ std::string FileUtil::readFile(const char* filePath) {
     
     std::ostringstream oss;
     oss << fstream.rdbuf();
+    
     return oss.str();
 }

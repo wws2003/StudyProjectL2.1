@@ -29,7 +29,7 @@ private:
      * @param sourceImage
      * @param outImage
      */
-    void initImageOutput(const BmpImageModel& sourceImage, BmpImageModel& outImage);
+    void initImageOutput(const BmpImageModel& sourceImage, BmpImageModel& outImage) const;
     
     /**
      * Initialize and return the convolution program structure to be ready for executing on device

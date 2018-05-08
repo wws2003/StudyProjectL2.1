@@ -8,20 +8,35 @@
 
 #include "ImageUtil.h"
 #include <fstream>
+#include <algorithm>
+
+#define KDEBUG 0
 
 #define IMAGE_ELE_SWAP(a,b) {image_ele_t aux = a; a = b; b = aux;}
 #define BITS_PER_PIXEL (8)
 
 // Implement logic follows sample bmpfuncs.c
 void ImageUtil::readImage(const char* imgFileName, BmpImageModel& outputModel) {
-    // Open file
-    std::fstream fs(imgFileName, std::iostream::in | std::iostream::binary);
     
     image_size_t width = 0;
     image_size_t height = 0;
     image_size_t size = 0;
     image_size_t offset = 0;
     char* headerRawData = NULL;
+    image_ele_t* imageDataBuffer = NULL;
+    
+#if KDEBUG
+    width = 256;
+    height = 256;
+    size = width * height;
+    offset = 1078;
+    headerRawData = new char[offset];
+    imageDataBuffer = new image_ele_t[size];
+    std::fill(headerRawData, headerRawData + offset, 30);
+    std::fill(imageDataBuffer, imageDataBuffer + size, 1.0);
+#else
+    // Open file
+    std::fstream fs(imgFileName, std::iostream::in | std::iostream::binary);
     
     // Offset
     fs.seekg(10);
@@ -59,17 +74,16 @@ void ImageUtil::readImage(const char* imgFileName, BmpImageModel& outputModel) {
     // Read in the actual image
     fs.seekg(offset);
     for(image_size_t i = 0; i < height; i++) {
-        uchar tmp;
         // add actual data to the image
         for (image_size_t j = 0; j < width; j++) {
             // Only support BITS_PER_PIXEL = 8 ?
-            fs >> tmp;
-            tmpImageData[i * width + j] = tmp;
+            fs.read(tmpImageData + (i * width + j), 1);
         }
         // For the bmp format, each row has to be a multiple of 4,
         // so I need to read in the junk data (remaing data of the row) and throw it away
         for(int j = 0; j < padding; j++) {
-            fs >> tmp;
+            char tmp;
+            fs.read(&tmp, 1);
         }
     }
     
@@ -83,7 +97,7 @@ void ImageUtil::readImage(const char* imgFileName, BmpImageModel& outputModel) {
     }
     
     // To host-used model
-    image_ele_t* imageDataBuffer = new image_ele_t[width * height];
+    imageDataBuffer = new image_ele_t[width * height];
     for (image_size_t i = 0; i < height; i++) {
         for (image_size_t j = 0; j < width; j++) {
             imageDataBuffer[i * width + j] = (float)tmpImageData[i * width + j];
@@ -92,6 +106,7 @@ void ImageUtil::readImage(const char* imgFileName, BmpImageModel& outputModel) {
     
     // Release temp
     delete [] tmpImageData;
+#endif
     
     // Set to result
     outputModel.m_width = width;
@@ -103,6 +118,9 @@ void ImageUtil::readImage(const char* imgFileName, BmpImageModel& outputModel) {
 }
 
 void ImageUtil::writeImage(const char* fileName, const BmpImageModel& inputModel) {
+#if KDEBUG
+    // Do nothing
+#else
     std::fstream fs(fileName, std::iostream::out | std::iostream::binary);
     
     image_size_t width = inputModel.m_width;
@@ -150,4 +168,5 @@ void ImageUtil::writeImage(const char* fileName, const BmpImageModel& inputModel
     
     // Cleanup
     delete [] tmpImageData;
+#endif
 }
